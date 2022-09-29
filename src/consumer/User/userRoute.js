@@ -153,7 +153,7 @@ module.exports = function (app) {
   app.post("/consumer/user", user.postUsers);
 
   //   // 3. GET 로그인된 유저의 이름
-  //   app.get("/consumer/user/name", user.getUserName);
+  app.get("/consumer/user/name", jwtMiddleware,user.getUserName);
 
   //   // 4. 지역에 따른 펫시터 검색
   //   app.get("/consumer/location/pet-sitters", user.getPetSitterByLocation);

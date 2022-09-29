@@ -82,22 +82,6 @@ exports.getUsers = async function (req, res) {
   }
 };
 
-/**
- * API No. 3
- * API Name : 특정 유저 조회 API
- * [GET] /app/users/{userId}
- */
-exports.getUserById = async function (req, res) {
-  /**
-   * Path Variable: userId
-   */
-  const userId = req.params.userId;
-
-  if (!userId) return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
-
-  const userByUserId = await userProvider.retrieveUser(userId);
-  return res.send(response(baseResponse.SUCCESS, userByUserId));
-};
 
 // TODO: After 로그인 인증 방법 (JWT)
 /**
@@ -116,31 +100,7 @@ exports.login = async function (req, res) {
   return res.send(signInResponse);
 };
 
-/**
- * API No. 5
- * API Name : 회원 정보 수정 API + JWT + Validation
- * [PATCH] /app/users/:userId
- * path variable : userId
- * body : nickname
- */
-exports.patchUsers = async function (req, res) {
-  // jwt - userId, path variable :userId
 
-  const userIdFromJWT = req.verifiedToken.userId;
-
-  const userId = req.params.userId;
-  const nickname = req.body.nickname;
-
-  if (userIdFromJWT != userId) {
-    res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
-  } else {
-    if (!nickname)
-      return res.send(errResponse(baseResponse.USER_NICKNAME_EMPTY));
-
-    const editUserInfo = await userService.editUser(userId, nickname);
-    return res.send(editUserInfo);
-  }
-};
 
 /** JWT 토큰 검증 API
  * [GET] /app/auto-login
