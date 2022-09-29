@@ -26,10 +26,6 @@ exports.postUsers = async function (req, res) {
    */
   console.log("post Users 실행");
   const { idStr, userName, password, phoneNumber, address, dogs } = req.body;
-  console.log(req.body);
-  // console.log(req);
-  console.log(req.params);
-  console.log(idStr);
   // 빈 값 체크
   if (!idStr) return res.send(response(baseResponse.SIGNUP_ID_EMPTY));
   if (!password) return res.send(response(baseResponse.SIGNUP_PASSWORD_EMPTY));
@@ -108,12 +104,12 @@ exports.getUserById = async function (req, res) {
  * API No. 4
  * API Name : 로그인 API
  * [POST] /app/login
- * body : email, passsword
+ * body : idStr, passsword
  */
 exports.login = async function (req, res) {
   const { idStr, password } = req.body;
 
-  // TODO: email, password 형식적 Validation
+  // TODO: idStr, password 형식적 Validation
 
   const signInResponse = await userService.postSignIn(idStr, password);
 

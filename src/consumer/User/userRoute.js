@@ -8,7 +8,66 @@ module.exports = function (app) {
 
   //   // TODO: After 로그인 인증 방법 (JWT)
   //   // 1. 로그인 하기 API (JWT 생성)
+  /** @swagger
+  * paths:
+  *  /consumer/login:
+  *   post:
+  *     tags: [Consumer/Users]
+  *     summary: 로그인 API
+  *     consumes:
+  *       application/json
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json: 
+  *           schema:
+  *             type: object
+  *             properties:
+  *               idStr:
+  *                 type: string
+  *                 example: alsdnrdl01
+  *               password:
+  *                 type: string
+  *                 example: Aa1234@
+  *                 description: 대소문자숫자특수문자포함 8자이상, 암호화 안하고 평문으로 보냄
+  *             
+  *     responses:
+  *       "2000":
+  *         description: 로그인 성공!
+  *         contnet:
+  *           application:json
+  *       "3003":
+  *         description: 아이디가 잘못 되었습니다.
+  *       "3004":
+  *         description: 비밀번호가 잘못 되었습니다.
+  *       "4000":
+  *         description: 데이터 베이스 에러 
+  *     
+  * definitions:
+  *   Pets:
+  *     type: object
+  *     properties:
+  *         petName:
+  *             type: string
+  *         petBreed:
+  *             type: string
+  *         petAge:
+  *             type: integer
+  *         petSex:
+  *             type: string
+  *             description: MALE or FEMALE
+  *         petSize:
+  *             type: string
+  *             description: SMALL,MEDIUM,LARGE
+  *         profileImgUrl:
+  *             type: string
+  * 
+  * 
+  *      
+  * 
+  * */
   app.post("/consumer/login", user.login);
+  
   /**
   * @swagger
   * paths:

@@ -24,6 +24,20 @@ async function insertUserInfo(connection, insertUserInfoParams) {
   return insertUserInfoRow;
 }
 
+async function selectUserPassword(connection, selectUserPasswordParams) {
+  const selectUserPasswordQuery = `
+        SELECT userId,idStr, userName, password
+        FROM Users 
+        WHERE idStr = ? AND password = ?;`;
+  const selectUserPasswordRow = await connection.query(
+      selectUserPasswordQuery,
+      selectUserPasswordParams
+  );
+  console.log("dao끝");
+  console.log(selectUserPasswordParams);
+  return selectUserPasswordRow;
+}
+
 async function registerPets(connection, dogs,userId) {
 
   for (i = 0; i < dogs.length; i++){
@@ -51,8 +65,11 @@ async function registerPets(connection, dogs,userId) {
   return 1;
 }
 
+
+
 module.exports = {
   selectUserIdStr,
   insertUserInfo,
   registerPets,
+  selectUserPassword,
 };

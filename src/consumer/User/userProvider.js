@@ -7,8 +7,17 @@ const userDao = require("./userDao");
 exports.idStrCheck = async function (idStr) {
     const connection = await pool.getConnection(async (conn) => conn);
     const idStrCheckResult = await userDao.selectUserIdStr(connection, idStr);
-    console.log(idStrCheckResult);
     connection.release();
   
     return idStrCheckResult;
-  };
+};
+  
+exports.passwordCheck = async function (selectUserPasswordParams) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const passwordCheckResult = await userDao.selectUserPassword(
+      connection,
+      selectUserPasswordParams
+  );
+  connection.release();
+  return passwordCheckResult[0];
+};
