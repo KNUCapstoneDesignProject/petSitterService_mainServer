@@ -7,10 +7,10 @@ module.exports = function (app) {
 
 //   // TODO: After 로그인 인증 방법 (JWT)
 //   // 1. 로그인 하기 API (JWT 생성)
-  app.post("/app/login", user.login);
+  app.post("/consumer/login", user.login);
 
 //   // 2. POST 유저 생성 (회원가입) API
-//   app.post("/consumer/user", user.postUsers);
+  app.post("/consumer/user", user.postUsers);
 
 //   // 3. GET 로그인된 유저의 이름
 //   app.get("/consumer/user/name", user.getUserName);
