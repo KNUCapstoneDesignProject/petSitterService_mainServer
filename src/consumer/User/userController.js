@@ -1,6 +1,6 @@
 const jwtMiddleware = require("../../../config/jwtMiddleware");
-const userProvider = require("../../app/User/userProvider");
-const userService = require("../../app/User/userService");
+const userProvider = require("./userProvider");
+const userService = require("./userService");
 const baseResponse = require("../../../config/baseResponseStatus");
 const { response, errResponse } = require("../../../config/response");
 
@@ -22,27 +22,39 @@ exports.getTest = async function (req, res) {
  */
 exports.postUsers = async function (req, res) {
   /**
-   * Body: email, password, nickname
+   * Body: idStr,password,phoneNumber,address,dog
    */
-  const { email, password, nickname } = req.body;
+  const { idStr,userName,password,phoneNumber,address,dogs} = req.body;
 
   // 빈 값 체크
-  if (!email) return res.send(response(baseResponse.SIGNUP_EMAIL_EMPTY));
+  if (!idStr) return res.send(response(baseResponse.SIGNUP_ID_EMPTY));
+  if (!password) return res.send(response(baseResponse.SIGNUP_PASSWORD_EMPTY));
+  if (!phoneNumber) return res.send(response(baseResponse.SIGNUP_TEL_EMPTY));
+  if (!address) return res.send(response(baseResponse.SIGNUP_ADDRESS_EMPTY));
+  if (!userName) return res.send(response(baseResponse.SIGNUP_NAME_EMPTY));
 
   // 길이 체크
-  if (email.length > 30)
-    return res.send(response(baseResponse.SIGNUP_EMAIL_LENGTH));
+  if (idStr.length > 30)
+    return res.send(response(baseResponse.SIGNUP_ID_LENGTH));
 
   // 형식 체크 (by 정규표현식)
-  if (!regexEmail.test(email))
-    return res.send(response(baseResponse.SIGNUP_EMAIL_ERROR_TYPE));
+  //TODO 아이디에는 영어,숫자를 제외하고 불가능하게 한다.
+  // if (!regexidStr.test(idStr))
+  //   return res.send(response(baseResponse.SIGNUP_ID_ERROR_TYPE));
 
-  // 기타 등등 - 추가하기
+  //TODO password는 영어 소,대문자,숫자,특수문자 필수포함에 8자 이상으로 한다.
+  //TODO 주소는 실제 존재하는 주소인지를 확인한다.
+  //TODO 강아지는 최소 한마리이상 포함시킨다.
+  //TODO 휴대폰번호는 010-0000-0000형식을 지켰는지 확인한다.
+  //
 
   const signUpResponse = await userService.createUser(
-    email,
+    idStr,
+    userName,
     password,
-    nickname
+    phoneNumber,
+    address,
+    dogs
   );
 
   return res.send(signUpResponse);

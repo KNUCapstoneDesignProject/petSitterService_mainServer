@@ -20,17 +20,17 @@ module.exports = {
   }, // ?
 
   //Request error
-  SIGNUP_EMAIL_EMPTY: {
+  SIGNUP_ID_EMPTY: {
     isSuccess: false,
     code: 2001,
-    message: "이메일을 입력해주세요",
+    message: "아이디를 입력해주세요",
   },
-  SIGNUP_EMAIL_LENGTH: {
+  SIGNUP_ID_LENGTH: {
     isSuccess: false,
     code: 2002,
     message: "이메일은 30자리 미만으로 입력해주세요.",
   },
-  SIGNUP_EMAIL_ERROR_TYPE: {
+  SIGNUP_ID_ERROR_TYPE: {
     isSuccess: false,
     code: 2003,
     message: "이메일을 형식을 정확하게 입력해주세요.",
@@ -54,6 +54,21 @@ module.exports = {
     isSuccess: false,
     code: 2007,
     message: "닉네임은 최대 20자리를 입력해주세요.",
+  },
+  SIGNUP_TEL_EMPTY: {
+    isSuccess: false,
+    code: 2008,
+    message: "전화번호를 입력해주세요.",
+  },
+  SIGNUP_ADDRESS_EMPTY: {
+    isSuccess: false,
+    code: 2009,
+    message: "주소를 입력해주세요.",
+  },
+  SIGNUP_NAME_EMPTY: {
+    isSuccess: false,
+    code: 2010,
+    message: "이름을 입력해주세요.",
   },
 
   SIGNIN_EMAIL_EMPTY: {
@@ -116,10 +131,10 @@ module.exports = {
   },
 
   // Response error
-  SIGNUP_REDUNDANT_EMAIL: {
+  SIGNUP_REDUNDANT_ID: {
     isSuccess: false,
     code: 3001,
-    message: "중복된 이메일입니다.",
+    message: "중복된 아이디 입니다.",
   },
   SIGNUP_REDUNDANT_NICKNAME: {
     isSuccess: false,

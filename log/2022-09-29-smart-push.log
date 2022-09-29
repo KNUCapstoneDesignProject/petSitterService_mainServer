@@ -1,1 +1,100 @@
 {"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:36:04"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:42:37"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:44:56"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:45:04"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:45:57"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:46:07"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:46:13"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:46:49"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:47:00"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:48:09"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:51:18"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:51:53"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:52:07"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:52:30"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:52:43"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:52:52"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:52:56"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:53:02"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:53:17"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:53:27"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:53:40"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:54:10"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:54:15"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 17:54:43"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:11:47"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:11:54"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:12:03"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:12:10"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:12:34"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:12:47"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:12:51"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:13:23"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:13:46"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:13:49"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:15:39"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:15:47"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:16:02"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:16:06"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:25:08"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:25:09"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:25:53"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:26:11"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:26:17"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:30:29"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:32:52"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:32:56"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:33:03"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:36:08"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:36:11"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:36:13"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:36:17"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:44:24"}
+{"level":"error","message":"App - createUser Service error\n: Access denied for user 'admin'@'localhost' (using password: YES)","timestamp":"2022-09-29 18:52:11"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:53:25"}
+{"level":"error","message":"App - createUser Service error\n: Table 'capstonedesign1.userinfo' doesn't exist","timestamp":"2022-09-29 18:53:27"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:54:00"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:54:33"}
+{"level":"error","message":"App - createUser Service error\n: Table 'capstonedesign1.userinfo' doesn't exist","timestamp":"2022-09-29 18:54:38"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:54:49"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:55:04"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:55:43"}
+{"level":"error","message":"App - createUser Service error\n: Table 'capstonedesign1.userinfo' doesn't exist","timestamp":"2022-09-29 18:55:44"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:56:17"}
+{"level":"error","message":"App - createUser Service error\n: connection is not defined","timestamp":"2022-09-29 18:56:19"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:56:55"}
+{"level":"error","message":"App - createUser Service error\n: connection is not defined","timestamp":"2022-09-29 18:57:14"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:57:42"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:57:48"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:57:55"}
+{"level":"error","message":"App - createUser Service error\n: connection is not defined","timestamp":"2022-09-29 18:57:56"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:58:08"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:58:21"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:58:30"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:58:33"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:58:57"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:59:03"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 18:59:46"}
+{"level":"error","message":"App - createUser Service error\n: Table 'capstonedesign1.userinfo' doesn't exist","timestamp":"2022-09-29 19:00:02"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:00:07"}
+{"level":"error","message":"App - createUser Service error\n: Column count doesn't match value count at row 1","timestamp":"2022-09-29 19:00:09"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:00:21"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:00:32"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:00:40"}
+{"level":"error","message":"App - createUser Service error\n: Column count doesn't match value count at row 1","timestamp":"2022-09-29 19:00:48"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:01:01"}
+{"level":"error","message":"App - createUser Service error\n: Column count doesn't match value count at row 1","timestamp":"2022-09-29 19:01:02"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:01:24"}
+{"level":"error","message":"App - createUser Service error\n: Unknown column 'address' in 'field list'","timestamp":"2022-09-29 19:01:25"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:04:13"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:04:18"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:04:20"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:04:25"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:04:45"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:04:58"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:05:07"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:05:17"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:05:29"}
+{"level":"error","message":"App - createUser Service error\n: userName is not defined","timestamp":"2022-09-29 19:05:48"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:06:32"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-09-29 19:06:50"}

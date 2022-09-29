@@ -9,7 +9,7 @@ async function selectUser(connection) {
 }
 
 // 이메일로 회원 조회
-async function selectUserEmail(connection, email) {
+async function selectUserIdStr(connection, email) {
   const selectUserEmailQuery = `
                 SELECT email, nickname 
                 FROM UserInfo 
@@ -83,7 +83,7 @@ async function updateUserInfo(connection, id, nickname) {
 
 module.exports = {
   selectUser,
-  selectUserEmail,
+  selectUserIdStr,
   selectUserId,
   insertUserInfo,
   selectUserPassword,
