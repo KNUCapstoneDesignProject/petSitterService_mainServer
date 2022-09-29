@@ -152,8 +152,63 @@ module.exports = function (app) {
   //   // 2. POST 유저 생성 (회원가입) API
   app.post("/consumer/user", user.postUsers);
 
+
+/** @swagger
+  * paths:
+  *  /consumer/user/{userId}/name:
+  *   get:
+  *     tags: [Consumer/Users]
+  *     summary: 로그인 되어있는 유저의 이름을 받아오는 API
+  *     consumes:
+  *       application/json
+  *     parameters:
+  *       - in: path
+  *         name: userId
+  *         type: integer
+  *         required: true
+  *         description: unsigned integer, header를 통해서 보내주는 token과 path를 통해 들어오는 userId가 일치해야한다. userId 6으로 테스트 권장
+  *       - in: header
+  *         name: x-access-token
+  *         type: string
+  *         required: true
+  *         description: 로그인 api를 통해 발급받은 token을 넣어준다. token의 유효기간은 현재 1day로 설정되어있다.
+  *     responses:
+  *       "2000":
+  *         description: 로그인 성공!
+  *         contnet:
+  *           application:json
+  *       "3003":
+  *         description: 아이디가 잘못 되었습니다.
+  *       "3004":
+  *         description: 비밀번호가 잘못 되었습니다.
+  *       "4000":
+  *         description: 데이터 베이스 에러 
+  *     
+  * definitions:
+  *   Pets:
+  *     type: object
+  *     properties:
+  *         petName:
+  *             type: string
+  *         petBreed:
+  *             type: string
+  *         petAge:
+  *             type: integer
+  *         petSex:
+  *             type: string
+  *             description: MALE or FEMALE
+  *         petSize:
+  *             type: string
+  *             description: SMALL,MEDIUM,LARGE
+  *         profileImgUrl:
+  *             type: string
+  * 
+  * 
+  *      
+  * 
+  * */
   //   // 3. GET 로그인된 유저의 이름
-  app.get("/consumer/user/name", jwtMiddleware,user.getUserName);
+  app.get("/consumer/user/:userId/name", jwtMiddleware,user.getUserName);
 
   //   // 4. 지역에 따른 펫시터 검색
   //   app.get("/consumer/location/pet-sitters", user.getPetSitterByLocation);

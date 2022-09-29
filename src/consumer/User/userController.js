@@ -65,21 +65,20 @@ exports.postUsers = async function (req, res) {
  * API Name : 유저 조회 API (+ 이메일로 검색 조회)
  * [GET] /app/users
  */
-exports.getUsers = async function (req, res) {
+exports.getUserName = async function (req, res) {
   /**
    * Query String: email
    */
-  const email = req.query.email;
-
-  if (!email) {
-    // 유저 전체 조회
-    const userListResult = await userProvider.retrieveUserList();
-    return res.send(response(baseResponse.SUCCESS, userListResult));
-  } else {
-    // 유저 검색 조회
-    const userListByEmail = await userProvider.retrieveUserList(email);
-    return res.send(response(baseResponse.SUCCESS, userListByEmail));
+  let userId;
+  if (req.verifiedToken.userId == req.params.userId) {
+    userId=req.verifiedToken.userId
+  } else {//TODO test필요.
+    return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH))
   }
+
+  const userName = await userProvider.retrieveUserName(userId);
+  return res.send(response(baseResponse.SUCCESS, userName[0]));
+  
 };
 
 
