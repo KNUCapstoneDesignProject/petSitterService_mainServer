@@ -24,8 +24,12 @@ exports.postUsers = async function (req, res) {
   /**
    * Body: idStr,password,phoneNumber,address,dog
    */
-  const { idStr,userName,password,phoneNumber,address,dogs} = req.body;
-
+  console.log("post Users 실행");
+  const { idStr, userName, password, phoneNumber, address, dogs } = req.body;
+  console.log(req.body);
+  // console.log(req);
+  console.log(req.params);
+  console.log(idStr);
   // 빈 값 체크
   if (!idStr) return res.send(response(baseResponse.SIGNUP_ID_EMPTY));
   if (!password) return res.send(response(baseResponse.SIGNUP_PASSWORD_EMPTY));

@@ -28,7 +28,7 @@ module.exports = {
   SIGNUP_ID_LENGTH: {
     isSuccess: false,
     code: 2002,
-    message: "이메일은 30자리 미만으로 입력해주세요.",
+    message: "아이디는 20자리 미만으로 입력해주세요.",
   },
   SIGNUP_ID_ERROR_TYPE: {
     isSuccess: false,

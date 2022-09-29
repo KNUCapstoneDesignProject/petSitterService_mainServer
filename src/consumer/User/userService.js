@@ -14,9 +14,12 @@ const {connect} = require("http2");
 // Service: Create, Update, Delete 비즈니스 로직 처리
 
 exports.createUser = async function (idStr,userName,password,phoneNumber,address,dogs) {
+    connection = await pool.getConnection(async (conn) => conn);
+    
     try {
-        // 아이디 중복 확인
-        console.log("여기로 들어오는거 맞지??")
+
+        await connection.beginTransaction();
+        //아이디 중복 확인
         const userRows = await userProvider.idStrCheck(idStr);
         if (userRows.length > 0)
             return errResponse(baseResponse.SIGNUP_REDUNDANT_ID);
@@ -29,17 +32,22 @@ exports.createUser = async function (idStr,userName,password,phoneNumber,address
 
         const insertUserInfoParams = [idStr,userName,hashedPassword,phoneNumber,address];
 
-        const connection = await pool.getConnection(async (conn) => conn);
 
         const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
+        const petRegisterResult = await userDao.registerPets(connection, dogs, userIdResult[0].insertId);
+
         console.log(`추가된 회원 : ${userIdResult[0].insertId}`)
-        connection.release();
+        await connection.commit();
         return response(baseResponse.SUCCESS);
 
 
     } catch (err) {
+        await connection.rollback();
         logger.error(`App - createUser Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
+    } finally {
+        connection.release();
+        
     }
 };
 
