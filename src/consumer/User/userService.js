@@ -30,10 +30,11 @@ exports.createUser = async function (idStr,userName,password,phoneNumber,address
             .update(password)
             .digest("hex");
 
-        const insertUserInfoParams = [idStr,userName,hashedPassword,phoneNumber,address];
+        const insertUserInfoParams = [idStr,userName,hashedPassword,phoneNumber];
 
 
         const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
+        const insertAddressResult = await userDao.insertAddress(connection, userIdResult[0].insertId,address,"DEFAULT");
         const petRegisterResult = await userDao.registerPets(connection, dogs, userIdResult[0].insertId);
 
         console.log(`추가된 회원 : ${userIdResult[0].insertId}`)

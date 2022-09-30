@@ -108,7 +108,7 @@ module.exports = function (app) {
   *             
   *             
   *     responses:
-  *       "2000":
+  *       "1000":
   *         description: 회원가입 성공!
   *         contnet:
   *           application:json
@@ -153,7 +153,8 @@ module.exports = function (app) {
   app.post("/consumer/user", user.postUsers);
 
 
-/** @swagger
+/** 
+ * @swagger
   * paths:
   *  /consumer/user/{userId}/name:
   *   get:
@@ -173,48 +174,71 @@ module.exports = function (app) {
   *         required: true
   *         description: 로그인 api를 통해 발급받은 token을 넣어준다. token의 유효기간은 현재 1day로 설정되어있다.
   *     responses:
-  *       "2000":
+  *       "1000":
   *         description: 로그인 성공!
   *         contnet:
   *           application:json
-  *       "3003":
-  *         description: 아이디가 잘못 되었습니다.
-  *       "3004":
-  *         description: 비밀번호가 잘못 되었습니다.
+  *       "2000":
+  *         description: JWT 토큰을 입력해주세요.
+  *       "2016":
+  *         description: 유저 아이디 값을 확인해주세요.
+  *       "3000":
+  *         description: JWT 토큰 검증 실패
   *       "4000":
   *         description: 데이터 베이스 에러 
   *     
-  * definitions:
-  *   Pets:
-  *     type: object
-  *     properties:
-  *         petName:
-  *             type: string
-  *         petBreed:
-  *             type: string
-  *         petAge:
-  *             type: integer
-  *         petSex:
-  *             type: string
-  *             description: MALE or FEMALE
-  *         petSize:
-  *             type: string
-  *             description: SMALL,MEDIUM,LARGE
-  *         profileImgUrl:
-  *             type: string
   * 
   * 
   *      
   * 
   * */
   //   // 3. GET 로그인된 유저의 이름
-  app.get("/consumer/user/:userId/name", jwtMiddleware,user.getUserName);
+  app.get("/consumer/users/:userId/name", jwtMiddleware,user.getUserName);
 
   //   // 4. 지역에 따른 펫시터 검색
   //   app.get("/consumer/location/pet-sitters", user.getPetSitterByLocation);
 
+  /** 
+ * @swagger
+  * paths:
+  *  /consumer/user/{userId}/locations:
+  *   get:
+  *     tags: [Consumer/Users]
+  *     summary: 로그인 되어있는 유저의 등록된 주소들을 받아오는 API(아직 구현중입니다.)
+  *     consumes:
+  *       application/json
+  *     parameters:
+  *       - in: path
+  *         name: userId
+  *         type: integer
+  *         required: true
+  *         description: unsigned integer, header를 통해서 보내주는 token과 path를 통해 들어오는 userId가 일치해야한다. userId 6으로 테스트 권장
+  *       - in: header
+  *         name: x-access-token
+  *         type: string
+  *         required: true
+  *         description: 로그인 api를 통해 발급받은 token을 넣어준다. token의 유효기간은 현재 1day로 설정되어있다.
+  *     responses:
+  *       "1000":
+  *         description: 로그인 성공!
+  *         contnet:
+  *           application:json
+  *       "2000":
+  *         description: JWT 토큰을 입력해주세요.
+  *       "2016":
+  *         description: 유저 아이디 값을 확인해주세요.
+  *       "3000":
+  *         description: JWT 토큰 검증 실패
+  *       "4000":
+  *         description: 데이터 베이스 에러 
+  *     
+  * 
+  * 
+  *      
+  * 
+  * */
   //   // 5. GET 유저의 등록된 주소
-  //   app.get("/consumer/user/locations", user.getLocationsForUser);
+    app.get("/consumer/users/:userId/locations",jwtMiddleware,user.getLocationsForUser);
 
   //   // 6. GET petSitter의 상세 정보
   //   app.get("/consumer/pet-sitter/detail", user.getPetSitterDetail);
@@ -224,7 +248,10 @@ module.exports = function (app) {
 
   //   // 8. POST 유저 주소 등록
   //   app.post("/consumer/users/:userId/location", user.getUserLocation);
+
 };
+
+
 
 // TODO: 자동로그인 API (JWT 검증 및 Payload 내뱉기)
 // JWT 검증 API

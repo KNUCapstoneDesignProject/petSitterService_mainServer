@@ -13,8 +13,8 @@ async function selectUserIdStr(connection, idStr) {
 async function insertUserInfo(connection, insertUserInfoParams) {
   console.log(insertUserInfoParams);
   const insertUserInfoQuery = `
-          INSERT INTO Users(idStr, userName,password,tel,address)
-          VALUES (?, ?, ?,?,?);
+          INSERT INTO Users(idStr, userName,password,tel)
+          VALUES (?, ?, ?,?);
       `;
   const insertUserInfoRow = await connection.query(
     insertUserInfoQuery,
@@ -23,6 +23,21 @@ async function insertUserInfo(connection, insertUserInfoParams) {
 
   return insertUserInfoRow;
 }
+
+// 유저 주소 등록
+async function insertAddress(connection, userId,address,status) {
+  const insertAddressQuery = `
+          INSERT INTO Address(userId,address,status)
+          VALUES (?, ?, ?);
+      `;
+  const insertAddressRow = await connection.query(
+    insertAddressQuery,
+    [userId,address,status]
+  );
+
+  return insertAddressRow;
+}
+
 
 async function selectUserPassword(connection, selectUserPasswordParams) {
   const selectUserPasswordQuery = `
@@ -75,6 +90,18 @@ async function retrieveUserName(connection, userId) {
   return userRow;
 }
 
+async function retrieveUserLocations(connection, userId) {
+  const retrieveUserLocationsQuery = `
+        SELECT userId,userName
+        FROM Users 
+        WHERE userId = ?`;
+  const userLocationRow = await connection.query(
+    retrieveUserLocationsQuery,
+      userId
+  );
+  return userLocationRow;
+}
+
 
 module.exports = {
   selectUserIdStr,
@@ -82,4 +109,5 @@ module.exports = {
   registerPets,
   selectUserPassword,
   retrieveUserName,
+  insertAddress,
 };

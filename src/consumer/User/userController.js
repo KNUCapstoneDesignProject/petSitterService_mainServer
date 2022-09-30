@@ -81,6 +81,22 @@ exports.getUserName = async function (req, res) {
   
 };
 
+exports.getLocationsForUser = async function (req, res) {
+  /**
+   * Query String: email
+   */
+  let userId;
+  if (req.verifiedToken.userId == req.params.userId) {
+    userId=req.verifiedToken.userId
+  } else {//TODO test필요.
+    return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH))
+  }
+
+  const userLocationList = await userProvider.retrieveUserLocations(userId);
+  return res.send(response(baseResponse.SUCCESS, userLocationList));
+  
+};
+
 
 // TODO: After 로그인 인증 방법 (JWT)
 /**

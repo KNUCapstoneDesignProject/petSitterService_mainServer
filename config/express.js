@@ -27,5 +27,10 @@ module.exports = function () {
     require('../src/consumer/User/userRoute')(app);
     // require('../src/app/Board/boardRoute')(app);
 
+
+
+    /* TEST  */
+    // require('../jest/test')(app);
+    
     return app;
 };

@@ -32,3 +32,12 @@ exports.retrieveUserName = async function (userId) {
   return retrieveUserNameResult[0];
 };
 
+exports.retrieveUserLocations = async function (userId) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const retrieveUserLocationsResult = await userDao.retrieveUserLocations(
+      connection,
+      userId
+  );
+  connection.release();
+  return retrieveUserLocationsResult[0];
+};
