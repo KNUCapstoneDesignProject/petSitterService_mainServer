@@ -1,7 +1,7 @@
 module.exports = {
   // Success
   SUCCESS: { isSuccess: true, code: 1000, message: "성공" },
-
+  NO_REDUNDANT_ID: { isSuccess: true, code: 1001, message: "아이디 중복 체크 성공" },
   // Common
   TOKEN_EMPTY: {
     isSuccess: false,
@@ -128,6 +128,11 @@ module.exports = {
     isSuccess: false,
     code: 2018,
     message: "회원 상태값을 입력해주세요",
+  },
+  LOCATION_EMPTY: {
+    isSuccess: false,
+    code: 2019,
+    message: "장소를 입력해주세요",
   },
 
   // Response error

@@ -152,7 +152,6 @@ module.exports = function (app) {
   //   // 2. POST 유저 생성 (회원가입) API
   app.post("/consumer/user", user.postUsers);
 
-
 /** 
  * @swagger
   * paths:
@@ -204,7 +203,7 @@ module.exports = function (app) {
   *  /consumer/users/{userId}/locations:
   *   get:
   *     tags: [Consumer/Users]
-  *     summary: 로그인 되어있는 유저의 등록된 주소들을 받아오는 API, result의 첫 인덱스에 무조껀  DEFAULT설정이 되어있는 주소로 보내진다.
+  *     summary: 로그인 되어있는 유저의 등록된 주소들을 받아오는 API, esult의 첫 인덱스에 무조껀  DEFAULT설정이 되어있는 주소로 보내진다.
   *     consumes:
   *       application/json
   *     parameters:
@@ -244,11 +243,93 @@ module.exports = function (app) {
   //   app.get("/consumer/pet-sitter/detail", user.getPetSitterDetail);
 
   //   // 7. GET 유저의 등록된 펫들의 정보
-  //   app.get("/consumer/users/:userId/pets", user.getUserPets);
+  //   app.get("/consumer/users/:userId/pets", jwtMiddleware,user.getUserPets);
 
+  /** 
+ * @swagger
+  * paths:
+  *  /consumer/users/{userId}/location:
+  *   post:
+  *     tags: [Consumer/Users]
+  *     summary: 유저 주소 등록 API
+  *     consumes:
+  *       application/json
+  *     parameters:
+  *       - in: path
+  *         name: userId
+  *         type: integer
+  *         required: true
+  *         description: unsigned integer, header를 통해서 보내주는 token과 path를 통해 들어오는 userId가 일치해야한다. userId 6으로 테스트 권장
+  *       - in: header
+  *         name: x-access-token
+  *         type: string
+  *         required: true
+  *         description: 로그인 api를 통해 발급받은 token을 넣어준다. token의 유효기간은 현재 1day로 설정되어있다.
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json: 
+  *           schema:
+  *             type: object
+  *             properties:
+  *               location:
+  *                 type: string
+  *                 example: 대구 북구 칠곡중앙대로 111
+  *     responses:
+  *       "1000":
+  *         description: 로그인 성공!
+  *         contnet:
+  *           application:json
+  *       "2000":
+  *         description: JWT 토큰을 입력해주세요.
+  *       "2012":
+  *         description: userId를 입력해주세요.
+  *       "2016":
+  *         description: 유저 아이디 값을 확인해주세요.
+  *       "2019":
+  *         description: 장소를 입력해주세요
+  *       "3000":
+  *         description: JWT 토큰 검증 실패
+  *       "4000":
+  *         description: 데이터 베이스 에러   
+  * 
+  * */
   //   // 8. POST 유저 주소 등록
-  //   app.post("/consumer/users/:userId/location", user.getUserLocation);
+    app.post("/consumer/users/:userId/location", jwtMiddleware,user.postNewLocation);
 
+  
+  /** 
+ * @swagger
+  * paths:
+  *  /join/check-login-id/{loginId}:
+  *   get:
+  *     tags: [Consumer/Users]
+  *     summary: 회원가입할때 아이디 중복 체크 API
+  *     consumes:
+  *       application/json
+  *     parameters:
+  *       - in: path
+  *         name: loginId
+  *         type: string
+  *         required: true
+  *         description: 회원가입 할 때 중복체크할 아이디 문자열
+  *     responses:
+  *       "1001":
+  *         description: 아이디 중복 체크 성공
+  *         contnet:
+  *           application:json
+  *       "3001":
+  *         description: 중복된 아이디 입니다.
+  *       "4000":
+  *         description: 데이터 베이스 에러 
+  *     
+  * 
+  * 
+  *      
+  * 
+  * */
+      // 9. 아이디 중복 체크 API
+    app.get("/join/check-login-id/:loginId",user.checkLoginId);
 };
 
 

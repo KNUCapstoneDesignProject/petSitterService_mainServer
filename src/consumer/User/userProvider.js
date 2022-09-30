@@ -7,6 +7,7 @@ const userDao = require("./userDao");
 exports.idStrCheck = async function (idStr) {
     const connection = await pool.getConnection(async (conn) => conn);
     const idStrCheckResult = await userDao.selectUserIdStr(connection, idStr);
+    console.log("여기까지?");
     connection.release();
   
     return idStrCheckResult;
@@ -40,4 +41,14 @@ exports.retrieveUserLocations = async function (userId) {
   );
   connection.release();
   return retrieveUserLocationsResult[0];
+};
+
+exports.checkLoginId = async function (loginId) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const checkLoginIdResult = await userDao.checkLoginId(
+      connection,
+      loginId
+  );
+  connection.release();
+  return checkLoginIdResult[0];
 };

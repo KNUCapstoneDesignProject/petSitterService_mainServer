@@ -26,6 +26,12 @@ exports.postUsers = async function (req, res) {
    */
   console.log("post Users 실행");
   const { idStr, userName, password, phoneNumber, address, dogs } = req.body;
+  console.dir(dogs[0].petName);
+  console.dir(dogs[0]['petName']);
+  console.dir();
+  console.dir(dogs[0]);
+  console.log(typeof dogs[0]);
+
   // 빈 값 체크
   if (!idStr) return res.send(response(baseResponse.SIGNUP_ID_EMPTY));
   if (!password) return res.send(response(baseResponse.SIGNUP_PASSWORD_EMPTY));
@@ -115,6 +121,47 @@ exports.login = async function (req, res) {
 
   return res.send(signInResponse);
 };
+
+exports.checkLoginId = async function (req, res) {
+  const { loginId} = req.params;
+
+  console.log(loginId);
+  // TODO: idStr, password 형식적 Validation
+
+  const userRows = await userProvider.idStrCheck(loginId);
+  if (userRows.length > 0)
+    return res.send(errResponse(baseResponse.SIGNUP_REDUNDANT_ID));
+  else {
+    return res.send(baseResponse.NO_REDUNDANT_ID);
+  }
+
+};
+
+exports.postNewLocation = async function (req, res) {
+  const { location } = req.body;
+  let userId;
+  console.log("post Location");
+  console.log(req.params.userId);
+  console.log(req.verifiedToken.userId);
+
+  if (!req.params.userId) 
+    return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
+  if (!location)
+    return res.send(errResponse(baseResponse.LOCATION_EMPTY));
+
+  console.log("여기는?")
+  if (req.verifiedToken.userId == req.params.userId) {
+    userId=req.verifiedToken.userId
+  } else {
+    return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH))
+  }
+  
+  const postResult = await userService.postNewLocation(userId,location);
+
+  return postResult;
+
+};
+
 
 
 

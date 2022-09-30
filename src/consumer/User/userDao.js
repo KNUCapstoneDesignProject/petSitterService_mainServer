@@ -52,9 +52,13 @@ async function selectUserPassword(connection, selectUserPasswordParams) {
 }
 
 async function registerPets(connection, dogs,userId) {
-
+  console.log("DAO 에서 dogs");
+  console.log(dogs);
+  console.log(dogs.length);
   for (i = 0; i < dogs.length; i++){
     dog = dogs[i];
+    console.log(dog);
+    console.log(dog['profileImgUrl']);
     dogInfos = [
       userId,
       dog.profileImgUrl,
@@ -104,6 +108,23 @@ async function retrieveUserLocations(connection, userId) {
   return userLocationRow;
 }
 
+async function postNewLocation(connection, userId, location) {
+  const postNewLocationQuery = `
+    SELECT addressId,address,status
+    FROM Address
+    WHERE userId = 10
+    ORDER BY FIELD(status,"DEFAULT") DESC`;
+  
+  const userLocationRow = await connection.query(
+    postNewLocationQuery,
+    userId,
+    location
+  );
+  return userLocationRow;
+}
+
+
+
 
 module.exports = {
   selectUserIdStr,
@@ -113,4 +134,5 @@ module.exports = {
   retrieveUserName,
   insertAddress,
   retrieveUserLocations,
+  postNewLocation,
 };
