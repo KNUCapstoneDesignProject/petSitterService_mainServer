@@ -26,11 +26,6 @@ exports.postUsers = async function (req, res) {
    */
   console.log("post Users 실행");
   const { idStr, userName, password, phoneNumber, address, dogs } = req.body;
-  console.dir(dogs[0].petName);
-  console.dir(dogs[0]['petName']);
-  console.dir();
-  console.dir(dogs[0]);
-  console.log(typeof dogs[0]);
 
   // 빈 값 체크
   if (!idStr) return res.send(response(baseResponse.SIGNUP_ID_EMPTY));
@@ -159,6 +154,27 @@ exports.postNewLocation = async function (req, res) {
   const postResult = await userService.postNewLocation(userId,location);
 
   return postResult;
+
+};
+
+
+exports.getUserPets = async function (req, res) {
+  let userId;
+  console.log("여기!");
+  if (!req.params.userId) 
+    return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
+  
+  /* header token과 path variable userId가 서로 일치하는지 확인 */
+  if (req.verifiedToken.userId == req.params.userId) {
+    userId=req.verifiedToken.userId
+  } else {
+    return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH))
+  }
+  
+  const petLists = await userService.getUserPets(userId);
+
+  console.log(petLists);
+  return res.send(petLists);
 
 };
 

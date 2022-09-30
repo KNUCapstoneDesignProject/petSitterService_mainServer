@@ -32,11 +32,8 @@ exports.createUser = async function (idStr,userName,password,phoneNumber,address
 
         const insertUserInfoParams = [idStr,userName,hashedPassword,phoneNumber];
 
-        console.log("1");
         const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
-        console.log("2");
         const insertAddressResult = await userDao.insertAddress(connection, userIdResult[0].insertId, address, "DEFAULT");
-        console.log("3");
         const petRegisterResult = await userDao.registerPets(connection, dogs, userIdResult[0].insertId);
 
         console.log(`추가된 회원 : ${userIdResult[0].insertId}`)
@@ -120,6 +117,28 @@ exports.postNewLocation = async function (userId, location) {
         const postNewLocationResult = await userDao.insertAddress(connection, userId, location, "NORMAL");
         await connection.commit();
         return response(baseResponse.SUCCESS);
+    } catch (e) {
+        await connection.rollback();
+        logger.error(
+            `App - postNewLocation Service error\n: ${err.message} \n${JSON.stringify(
+                err
+                )}`
+            );
+            return errResponse(baseResponse.DB_ERROR);
+    } finally {
+        await connection.release();
+    }
+};
+
+exports.getUserPets = async function (userId) {
+    console.log(userId);
+    connection = await pool.getConnection(async (conn) => conn);
+    try {
+        await connection.beginTransaction();
+
+        const petLists = await userDao.retrievePets(connection, userId);
+        await connection.commit();
+        return response(baseResponse.SUCCESS,petLists);
     } catch (e) {
         await connection.rollback();
         logger.error(

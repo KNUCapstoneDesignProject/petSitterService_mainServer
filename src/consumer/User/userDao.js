@@ -123,6 +123,20 @@ async function postNewLocation(connection, userId, location) {
   return userLocationRow;
 }
 
+async function retrievePets(connection, userId) {
+  const retrievePetsQuery = `
+    SELECT petId,profileImgUrl,petName,petAge,petSex,petBreed,petSize FROM Pets
+    LEFT JOIN Users U on Pets.userId = U.userId
+    where U.userId=?;
+  `;
+  
+  const petLists = await connection.query(
+    retrievePetsQuery,
+    userId
+  );
+  return petLists[0];
+}
+
 
 
 
@@ -135,4 +149,5 @@ module.exports = {
   insertAddress,
   retrieveUserLocations,
   postNewLocation,
+  retrievePets
 };
