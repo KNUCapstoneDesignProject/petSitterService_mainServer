@@ -156,7 +156,7 @@ module.exports = function (app) {
 /** 
  * @swagger
   * paths:
-  *  /consumer/user/{userId}/name:
+  *  /consumer/users/{userId}/name:
   *   get:
   *     tags: [Consumer/Users]
   *     summary: 로그인 되어있는 유저의 이름을 받아오는 API
@@ -201,10 +201,10 @@ module.exports = function (app) {
   /** 
  * @swagger
   * paths:
-  *  /consumer/user/{userId}/locations:
+  *  /consumer/users/{userId}/locations:
   *   get:
   *     tags: [Consumer/Users]
-  *     summary: 로그인 되어있는 유저의 등록된 주소들을 받아오는 API(아직 구현중입니다.)
+  *     summary: 로그인 되어있는 유저의 등록된 주소들을 받아오는 API, result의 첫 인덱스에 무조껀  DEFAULT설정이 되어있는 주소로 보내진다.
   *     consumes:
   *       application/json
   *     parameters:

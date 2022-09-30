@@ -108,6 +108,7 @@ exports.getLocationsForUser = async function (req, res) {
 exports.login = async function (req, res) {
   const { idStr, password } = req.body;
 
+  console.log(password);
   // TODO: idStr, password 형식적 Validation
 
   const signInResponse = await userService.postSignIn(idStr, password);

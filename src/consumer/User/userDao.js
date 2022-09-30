@@ -92,9 +92,11 @@ async function retrieveUserName(connection, userId) {
 
 async function retrieveUserLocations(connection, userId) {
   const retrieveUserLocationsQuery = `
-        SELECT userId,userName
-        FROM Users 
-        WHERE userId = ?`;
+    SELECT addressId,address,status
+    FROM Address
+    WHERE userId = 10
+    ORDER BY FIELD(status,"DEFAULT") DESC`;
+  
   const userLocationRow = await connection.query(
     retrieveUserLocationsQuery,
       userId
@@ -110,4 +112,5 @@ module.exports = {
   selectUserPassword,
   retrieveUserName,
   insertAddress,
+  retrieveUserLocations,
 };

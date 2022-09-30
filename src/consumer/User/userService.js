@@ -72,7 +72,7 @@ exports.postSignIn = async function (idStr, password) {
         const userInfoRows = await userProvider.passwordCheck(
             selectUserPasswordParams
         );
-
+        //todo 일치하는 유저가 없으면 유저없다고 에러줘야함.
         console.log("userInfoRows");
         console.log(userInfoRows);
         if (userInfoRows[0].password !== hashedPassword) {
