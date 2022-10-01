@@ -239,8 +239,47 @@ module.exports = function (app) {
   //   // 5. GET 유저의 등록된 주소
     app.get("/consumer/users/:userId/locations",jwtMiddleware,user.getLocationsForUser);
 
+  /** 
+ * @swagger
+  * paths:
+  *  /consumer/pet-sitter/{petSitterId}/detail:
+  *   get:
+  *     tags: [Consumer/Users]
+  *     summary: Pet Sitter 상세정보 조회 API
+  *     consumes:
+  *       application/json
+  *     parameters:
+  *       - in: path
+  *         name: petSitterId
+  *         type: integer
+  *         required: true
+  *         description: 조회하고자 하는 petSitter의 Id넣어서 호출
+  *       - in: header
+  *         name: x-access-token
+  *         type: string
+  *         required: true
+  *         description: 로그인 api를 통해 발급받은 token을 넣어준다. token의 유효기간은 현재 1day로 설정되어있다.
+  *     responses:
+  *       "1000":
+  *         description: 로그인 성공!
+  *         contnet:
+  *           application:json
+  *       "2000":
+  *         description: JWT 토큰을 입력해주세요.
+  *       "2016":
+  *         description: 유저 아이디 값을 확인해주세요.
+  *       "3000":
+  *         description: JWT 토큰 검증 실패
+  *       "4000":
+  *         description: 데이터 베이스 에러 
+  *     
+  * 
+  * 
+  *      
+  * 
+  * */
   //   // 6. GET petSitter의 상세 정보
-  //   app.get("/consumer/pet-sitter/detail", user.getPetSitterDetail);
+    app.get("/consumer/pet-sitter/:petSitterId/detail", user.getPetSitterDetail);
 
   /** 
  * @swagger
@@ -370,7 +409,81 @@ module.exports = function (app) {
   * 
   * */
       // 9. 아이디 중복 체크 API
-    app.get("/join/check-login-id/:loginId",user.checkLoginId);
+  app.get("/join/check-login-id/:loginId", user.checkLoginId);
+  
+
+  /** 
+ * @swagger
+  * paths:
+  *  /consumer/pet-sitter/{petSitterId}/service:
+  *   post:
+  *     tags: [Consumer/Users]
+  *     summary: 서비스 예약 요청 API
+  *     consumes:
+  *       application/json
+  *     parameters:
+  *       - in: path
+  *         name: petSitterId
+  *         type: integer
+  *         required: true
+  *         description: unsigned integer, header를 통해서 보내주는 token과 path를 통해 들어오는 userId가 일치해야한다. userId 6으로 테스트 권장
+  *       - in: header
+  *         name: x-access-token
+  *         type: string
+  *         required: true
+  *         description: 로그인 api를 통해 발급받은 token을 넣어준다. token의 유효기간은 현재 1day로 설정되어있다.
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json: 
+  *           schema:
+  *             type: object
+  *             properties:
+  *               startTime:
+  *                 type: string
+  *                 example: 2022-10-01 09:00
+  *               endTime:
+  *                 type: string
+  *                 example: 2022-10-01 11:00
+  *               requestComment:
+  *                 type: string
+  *                 example: 저희집에 오셔가지고 설거지 좀 해주시고 ^^ 쓰레기 도 버려주시구!~~~
+  *               hasWalk:
+  *                 type: integer
+  *                 example: 0
+  *               hasBath:
+  *                 type: integer
+  *                 example: 0
+  *               totalPrice:
+  *                 type: integer
+  *                 example: 100
+  *               status:
+  *                 type: string
+  *                 example: RESERVATION
+  *               petLists:
+  *                 type: array
+  *                 example: [9,10]
+  *     responses:
+  *       "1000":
+  *         description: 로그인 성공!
+  *         contnet:
+  *           application:json
+  *       "2000":
+  *         description: JWT 토큰을 입력해주세요.
+  *       "2012":
+  *         description: userId를 입력해주세요.
+  *       "2016":
+  *         description: 유저 아이디 값을 확인해주세요.
+  *       "2019":
+  *         description: 장소를 입력해주세요
+  *       "3000":
+  *         description: JWT 토큰 검증 실패
+  *       "4000":
+  *         description: 데이터 베이스 에러   
+  * 
+  * */
+  // 12. 서비스 예약 요청 API
+  app.post("/consumer/pet-sitter/:petSitterId/service",jwtMiddleware,user.reserveService)
 };
 
 

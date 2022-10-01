@@ -151,3 +151,32 @@ exports.getUserPets = async function (userId) {
         await connection.release();
     }
 };
+
+exports.reserveService = async function (userId,petSitterId,serviceInfo,petLists) {
+    connection = await pool.getConnection(async (conn) => conn);
+    
+    try {
+        await connection.beginTransaction();
+
+        const reserveServiceResult = await userDao.reserveService(connection, userId, petSitterId, serviceInfo);
+
+        for (i = 0; i < petLists.length; i++){
+            await userDao.mappingPets(connection, reserveServiceResult.insertId,petLists[i]);
+        }
+        
+        await connection.commit();
+        return response(baseResponse.SUCCESS);
+    } catch (err) {
+        await connection.rollback();
+        logger.error(
+            `App - reserveService Service error\n: ${err.message} \n${JSON.stringify(
+                err
+                )}`
+            );
+        return errResponse(baseResponse.DB_ERROR);
+    } finally {
+        await connection.release();
+    }
+};
+
+

@@ -136,9 +136,109 @@ async function retrievePets(connection, userId) {
   );
   return petLists[0];
 }
+//startTime,endTime,requestComment,hasWalk,hasBath,totalPrice,status
+async function reserveService(connection, userId, petSitterId, serviceInfo) {
+  serviceInfo.unshift(petSitterId);
+  serviceInfo.unshift(userId);
+
+  const reserveServiceQuery = `
+    INSERT INTO Services(userId, petSitterId, startTime, endTime, requestComment, hasWalk, hasBath, totalPrice, status)
+    VALUES(?,?,?,?,?,?,?,?,?)
+  `;
+  
+  const reserveServiceResult = await connection.query(
+    reserveServiceQuery,
+    serviceInfo
+  );
+
+  return reserveServiceResult[0];
+}
+
+async function mappingPets(connection, serviceId,petId) {
+  const mappingPetsQuery = `
+    INSERT INTO ServicePetMappings(serviceId, petId)
+    VALUES(?,?)
+  `;
+  
+  const mappingPetsResult = await connection.query(
+    mappingPetsQuery,
+    [serviceId,
+    petId]
+  );
+
+  return mappingPetsResult[0];
+}
+
+async function getPetSitterProfileInfo(connection, petSitterId) {
+  const getPetSitterProfileInfoQuery = `
+    SELECT 
+      profileImgUrl,
+      petSitterName,
+      Round((serviceCount/goodCount),1) as satisfaction
+    FROM PetSitters
+    WHERE petSitterId=?
+  `;
+  
+  const petSitterInfo = await connection.query(
+    getPetSitterProfileInfoQuery,
+    petSitterId
+  );
+
+  return petSitterInfo[0][0];
+}
 
 
+async function getPetSitterCertificationLists(connection, petSitterId) {
+  const getPetSitterCertificationListsQuery = `
+      SELECT
+      cerificationName,
+      DATE_FORMAT(acquisitionDate,"%Y-%m-%d"),
+      certificateIssuer
+      FROM Certificates
+      WHERE petSitterId=?
+  `;
+  
+  const CertificationLists = await connection.query(
+    getPetSitterCertificationListsQuery,
+    petSitterId
+  );
 
+  return CertificationLists[0];
+}
+
+
+async function getPetSitterExperienceLists(connection, petSitterId) {
+  const getPetSitterExperienceListsQuery = `
+      SELECT
+        content
+      FROM Experiences
+      WHERE petSitterId=?
+  `;
+  
+  const experienceLists = await connection.query(
+    getPetSitterExperienceListsQuery,
+    petSitterId
+  );
+
+  return experienceLists[0];
+}
+
+async function getPetSitterPriceLists(connection, petSitterId) {
+  const getPetSitterPriceListsQuery = `
+      SELECT
+        petSize,
+        price
+      FROM Prices
+      WHERE petSitterId=?
+  `;
+  
+  const experienceLists = await connection.query(
+    getPetSitterPriceListsQuery,
+    petSitterId
+  );
+
+  return experienceLists[0];
+}
 
 module.exports = {
   selectUserIdStr,
@@ -149,5 +249,11 @@ module.exports = {
   insertAddress,
   retrieveUserLocations,
   postNewLocation,
-  retrievePets
+  retrievePets,
+  reserveService,
+  mappingPets,
+  getPetSitterProfileInfo,
+  getPetSitterCertificationLists,
+  getPetSitterExperienceLists,
+  getPetSitterPriceLists,
 };

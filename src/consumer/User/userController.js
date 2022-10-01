@@ -178,6 +178,34 @@ exports.getUserPets = async function (req, res) {
 
 };
 
+exports.reserveService = async function (req, res) {
+  const petSitterId=req.params.petSitterId;
+  const userId = req.verifiedToken.userId;
+  const {startTime,endTime,requestComment,hasWalk,hasBath,totalPrice,status,petLists } = req.body;
+  const serviceInfo = [startTime,endTime,requestComment,hasWalk,hasBath,totalPrice,status];
+
+
+  if (!req.params.petSitterId) 
+    return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
+  
+  const reserveResult = await userService.reserveService(userId,petSitterId,serviceInfo,petLists);
+
+  return res.send(reserveResult);
+
+};
+
+exports.getPetSitterDetail = async function (req, res) {
+  const petSitterId=req.params.petSitterId;
+
+
+  if (!req.params.petSitterId) 
+    return res.send(errResponse(baseResponse.PET_SITTER_ID_EMPTY));
+  
+  const petSitterInfo = await userProvider.getPetSitterDetail(petSitterId);
+
+  return res.send(petSitterInfo);
+
+};
 
 
 

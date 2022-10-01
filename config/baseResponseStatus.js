@@ -135,6 +135,12 @@ module.exports = {
     message: "장소를 입력해주세요",
   },
 
+  PET_SITTER_ID_EMPTY: {
+    isSuccess: false,
+    code: 2020,
+    message: "petSitter의 ID를 입력해주세요.",
+  },
+
   // Response error
   SIGNUP_REDUNDANT_ID: {
     isSuccess: false,
