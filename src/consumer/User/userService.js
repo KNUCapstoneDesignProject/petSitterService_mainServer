@@ -181,36 +181,4 @@ exports.reserveService = async function (userId,petSitterId,serviceInfo,petLists
 };
 
 
-exports.evaluateService = async function (userId,serviceId) {
-    connection = await pool.getConnection(async (conn) => conn);
-    
-    try {
-        await connection.beginTransaction();
-        // Validation
-        // userId->serviceId 일치하는지 확인 이것의 status가 ONGOING인지 확인 completeRequest가 1상태인지 확인
-        const ServiceDetail = await serviceProvider.getServiceDetail(serviceId);
-
-        if (!ServiceDetail.serviceId)   //ServiceDetail에 ErrResponse가 담겨있는지 확인.
-            return ServiceDetail
-
-        
-
-
-
-
-        await connection.commit();
-        return response(baseResponse.SUCCESS);
-    } catch (err) {
-        await connection.rollback();
-        logger.error(
-            `App - evaluateService Service error\n: ${err.message} \n${JSON.stringify(
-                err
-                )}`
-            );
-        return errResponse(baseResponse.DB_ERROR);
-    } finally {
-        await connection.release();
-    }
-};
-
 

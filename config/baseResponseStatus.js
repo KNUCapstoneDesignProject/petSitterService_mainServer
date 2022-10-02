@@ -145,6 +145,16 @@ module.exports = {
     code: 2021,
     message: "service의 ID를 입력해주세요.",
   },
+  SERVICEID_NOT_MATCH: {
+    isSuccess: false,
+    code: 2022,
+    message: "service의 ID값을 확인해주세요.",
+  },
+  EVALUATION_EMPTY: {
+    isSuccess: false,
+    code: 2023,
+    message: "평가를 입력해주세요",
+  },
 
   // Response error
   SIGNUP_REDUNDANT_ID: {
