@@ -1,6 +1,7 @@
 const {logger} = require("../../../config/winston");
 const {pool} = require("../../../config/database");
 const secret_config = require("../../../config/secret");
+const serviceProvider = require("../Service/serviceProvider");
 const userProvider = require("./userProvider");
 const userDao = require("./userDao");
 const baseResponse = require("../../../config/baseResponseStatus");
@@ -187,8 +188,12 @@ exports.evaluateService = async function (userId,serviceId) {
         await connection.beginTransaction();
         // Validation
         // userId->serviceId 일치하는지 확인 이것의 status가 ONGOING인지 확인 completeRequest가 1상태인지 확인
-        
+        const ServiceDetail = await serviceProvider.getServiceDetail(serviceId);
 
+        if (!ServiceDetail.serviceId)   //ServiceDetail에 ErrResponse가 담겨있는지 확인.
+            return ServiceDetail
+
+        
 
 
 
