@@ -281,6 +281,7 @@ module.exports = function (app) {
   //   // 6. GET petSitter의 상세 정보
     app.get("/consumer/pet-sitter/:petSitterId/detail", user.getPetSitterDetail);
 
+      
   /** 
  * @swagger
   * paths:
@@ -325,6 +326,51 @@ module.exports = function (app) {
   //   // 7. GET 유저의 등록된 펫들의 정보
     app.get("/consumer/users/:userId/pets", jwtMiddleware,user.getUserPets);
 
+  //  // 8. 서비스 완료와 함께 평가(Good or Bad)
+    app.patch("/consumer/reservation/histories", user.evaluateService);
+  
+  /**
+ * @swagger
+  * paths:
+  *  /consumer/users/{userId}/reservation/histories:
+  *   get:
+  *     tags: [Consumer/Users]
+  *     summary: 이전 서비스 기록 조회 API
+  *     consumes:
+  *       application/json
+  *     parameters:
+  *       - in: path
+  *         name: userId
+  *         type: integer
+  *         required: true
+  *         description: unsigned integer, header를 통해서 보내주는 token과 path를 통해 들어오는 userId가 일치해야한다. userId 6으로 테스트 권장
+  *       - in: header
+  *         name: x-access-token
+  *         type: string
+  *         required: true
+  *         description: 로그인 api를 통해 발급받은 token을 넣어준다. token의 유효기간은 현재 1day로 설정되어있다.
+  *     responses:
+  *       "1000":
+  *         description: 로그인 성공!
+  *         contnet:
+  *           application:json
+  *       "2000":
+  *         description: JWT 토큰을 입력해주세요.
+  *       "2012":
+  *         description: userId를 입력해주세요.
+  *       "2016":
+  *         description: 유저 아이디 값을 확인해주세요.
+  *       "2019":
+  *         description: 장소를 입력해주세요
+  *       "3000":
+  *         description: JWT 토큰 검증 실패
+  *       "4000":
+  *         description: 데이터 베이스 에러   
+  * 
+  * */
+  
+  // // 9. 이전 서비스 기록들 조회
+    app.get("/consumer/users/:userId/reservation/histories",jwtMiddleware,user.getPrevServices);
   /** 
  * @swagger
   * paths:
@@ -374,7 +420,7 @@ module.exports = function (app) {
   *         description: 데이터 베이스 에러   
   * 
   * */
-  //   // 8. POST 유저 주소 등록
+  //   // 10. POST 유저 주소 등록
     app.post("/consumer/users/:userId/location", jwtMiddleware,user.postNewLocation);
 
   
@@ -408,7 +454,7 @@ module.exports = function (app) {
   *      
   * 
   * */
-      // 9. 아이디 중복 체크 API
+      // 11. 아이디 중복 체크 API
   app.get("/join/check-login-id/:loginId", user.checkLoginId);
   
 

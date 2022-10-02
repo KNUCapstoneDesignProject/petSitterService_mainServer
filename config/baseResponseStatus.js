@@ -140,6 +140,11 @@ module.exports = {
     code: 2020,
     message: "petSitter의 ID를 입력해주세요.",
   },
+  SERVICE_SERVICEID_EMPTY: {
+    isSuccess: false,
+    code: 2021,
+    message: "service의 ID를 입력해주세요.",
+  },
 
   // Response error
   SIGNUP_REDUNDANT_ID: {

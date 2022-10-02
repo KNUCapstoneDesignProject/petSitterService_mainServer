@@ -207,6 +207,52 @@ exports.getPetSitterDetail = async function (req, res) {
 
 };
 
+exports.getPrevServices = async function (req, res) {
+  let userId;
+
+
+  if (!req.params.userId) 
+    return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
+  
+  /* header token과 path variable userId가 서로 일치하는지 확인 */
+  if (req.verifiedToken.userId == req.params.userId) {
+    userId=req.verifiedToken.userId
+  } else {
+    return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH))
+  }
+  
+
+  const serviceHistoriesList = await userProvider.getPrevServices(userId);
+
+  return res.send(serviceHistoriesList);
+
+};
+
+exports.evaluateService = async function (req, res) {
+  let userId;
+  let serviceId;
+
+
+  if (!req.body.userId) 
+    return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
+  
+  if (!req.body.serviceId)
+    return res.send(errResponse(baseResponse.SERVICE_SERVICEID_EMPTY));
+  
+  serviceId = req.body.serviceId;
+  /* header token과 path variable userId가 서로 일치하는지 확인 */
+  if (req.verifiedToken.userId == req.body.userId) {
+    userId=req.verifiedToken.userId
+  } else {
+    return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH))
+  }
+  
+
+  const evaluateServiceResult = await userService.evaluateService(userId,serviceId);
+
+  return res.send(evaluateServiceResult);
+
+};
 
 
 /** JWT 토큰 검증 API

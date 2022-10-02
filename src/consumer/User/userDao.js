@@ -240,6 +240,46 @@ async function getPetSitterPriceLists(connection, petSitterId) {
   return experienceLists[0];
 }
 
+async function getPrevServicesDetail(connection, userId) {
+  const getPetSitterPriceListsQuery = `
+    SELECT
+        serviceId,
+        PS.petSitterId,
+        petSitterName,
+        CONCAT(petSitterName," 펫시터에게 받은 돌봄 서비스") as serviceName,
+        IF(DATEDIFF(startTime,endTime)=0,
+            DATE_FORMAT(startTime,"%Y-%m-%d"),
+            CONCAT(DATE_FORMAT(startTime,"%Y-%m-%d")," ~ ",DATE_FORMAT(endTime,"%Y-%m-%d"))) AS "기간",
+        evaluation
+    FROM Services
+    LEFT JOIN PetSitters PS on Services.petSitterId = PS.petSitterId
+    WHERE userId=?;
+  `;
+  
+  const experienceLists = await connection.query(
+    getPetSitterPriceListsQuery,
+    userId
+  );
+
+  return experienceLists[0];
+}
+
+async function getServicePets(connection, serviceId) {
+  const getServicePetsQuery = `
+      SELECT SPM.petId,P.petName FROM Services
+      LEFT JOIN ServicePetMappings SPM on Services.serviceId = SPM.serviceId
+      LEFT JOIN Pets P on P.petId=SPM.petId
+      WHERE SPM.serviceId=?;
+  `;
+  
+  const servicePetList = await connection.query(
+    getServicePetsQuery,
+    serviceId
+  );
+
+  return servicePetList[0];
+}
+
 module.exports = {
   selectUserIdStr,
   insertUserInfo,
@@ -256,4 +296,6 @@ module.exports = {
   getPetSitterCertificationLists,
   getPetSitterExperienceLists,
   getPetSitterPriceLists,
+  getPrevServicesDetail,
+  getServicePets,
 };
