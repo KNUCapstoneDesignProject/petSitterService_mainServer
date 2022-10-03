@@ -38,8 +38,8 @@ async function getCurrentService(connection, serviceId) {
         SELECT 
             s.serviceId,
             petSitterName,
-            DATE_FORMAT(startTime,"%Y-%m-%d-%k %p") as startTime,
-            DATE_FORMAT(endTime,"%Y-%m-%d-%k %p") as endTime,
+            DATE_FORMAT(startTime,"%Y-%m-%d-%k:%i %p") as startTime,
+            DATE_FORMAT(endTime,"%Y-%m-%d-%k:%i %p") as endTime,
             requestComment
         FROM Services
         LEFT JOIN servicepetmappings s on Services.serviceId = s.serviceId
