@@ -33,11 +33,14 @@ exports.postUsers = async function (req, res) {
   if (!phoneNumber) return res.send(response(baseResponse.SIGNUP_TEL_EMPTY));
   if (!address) return res.send(response(baseResponse.SIGNUP_ADDRESS_EMPTY));
   if (!userName) return res.send(response(baseResponse.SIGNUP_NAME_EMPTY));
+  if (!dogs) return res.send(response(baseResponse.SIGNUP_NAME_EMPTY));
 
   // 길이 체크
   if (idStr.length > 30)
     return res.send(response(baseResponse.SIGNUP_ID_LENGTH));
 
+  if (dogs.length<1)
+    return res.send(response(baseResponse.SIGNUP_NAME_EMPTY));
   // 형식 체크 (by 정규표현식)
   //TODO 아이디에는 영어,숫자를 제외하고 불가능하게 한다.
   // if (!regexidStr.test(idStr))

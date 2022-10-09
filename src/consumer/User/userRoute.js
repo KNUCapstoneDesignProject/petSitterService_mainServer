@@ -133,6 +133,10 @@ module.exports = function (app) {
   *     properties:
   *         petName:
   *             type: string
+  *         petCategory:
+  *             type: string
+  *             description: DOG | CAT
+  *             example: DOG
   *         petBreed:
   *             type: string
   *         petAge:
