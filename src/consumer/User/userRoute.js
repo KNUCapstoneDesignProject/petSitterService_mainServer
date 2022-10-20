@@ -372,7 +372,7 @@ module.exports = function (app) {
   * 
   * */
   
-  // // 9. 이전 서비스 기록들 조회
+  // // 9. 이전 서비스 기록들 조회 service로 옮길것.
     app.get("/consumer/users/:userId/reservation/histories",jwtMiddleware,user.getPrevServices);
   /** 
  * @swagger
@@ -531,7 +531,7 @@ module.exports = function (app) {
   *         description: 데이터 베이스 에러   
   * 
   * */
-  // 12. 서비스 예약 요청 API
+  // 12. 서비스 예약 요청 API service로 옮기기
   app.post("/consumer/pet-sitter/:petSitterId/service",jwtMiddleware,user.reserveService)
 };
 
