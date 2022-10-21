@@ -58,20 +58,20 @@ async function registerPets(connection, dogs,userId) {
   for (i = 0; i < dogs.length; i++){
     dog = dogs[i];
     console.log(dog);
-    console.log(dog['profileImgUrl']);
     dogInfos = [
       userId,
       dog.profileImgUrl,
       dog.petCategory,
       dog.petName,
+      dog.petCategory,
       dog.petAge,
       dog.petSex,
       dog.petBreed,
       dog.petSize
     ]
     const registerPetsQuery = `
-          INSERT INTO Pets(userId, profileImgUrl,petName,petAge,petSex,petBreed,petSize)
-          VALUES (?, ?, ?,?,?,?,?);
+          INSERT INTO Pets(userId, profileImgUrl,petName,petCategory,petAge,petSex,petBreed,petSize)
+          VALUES (?, ?, ?,?,?,?,?,?);
       `;
     const registerPetsResult = await connection.query(
       registerPetsQuery,

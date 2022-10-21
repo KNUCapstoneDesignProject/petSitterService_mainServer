@@ -71,6 +71,17 @@ module.exports = {
     message: "이름을 입력해주세요.",
   },
 
+  SIGNUP_DOGS_EMPTY: {
+    isSuccess: false,
+    code: 2011,
+    message: "강아지를 추가해주세요.",
+  },
+  SIGNUP_PROFILE_IMG_EMPTY: {
+    isSuccess: false,
+    code: 2012,
+    message: "프로필이미지를 등록해주세요",
+  },
+
   SIGNIN_EMAIL_EMPTY: {
     isSuccess: false,
     code: 2008,
