@@ -22,7 +22,8 @@ exports.getTest = async function (req, res) {
  */
 exports.postUsers = async function (req, res) {
   /**
-   * Body: idStr,password,phoneNumber,address,dog
+   * Body: idStr,password,phoneNumber,address,dogs
+   * dogs: profileImgUrl,petName, petCategory,petBreed,petSize,petSex,petAge
    */
   console.log("post Users 실행");
   const { idStr, userName, password, phoneNumber, address, dogs } = req.body;

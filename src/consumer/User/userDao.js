@@ -50,7 +50,7 @@ async function selectUserPassword(connection, selectUserPasswordParams) {
   );
   return selectUserPasswordRow;
 }
-
+// dogs: profileImgUrl,petName, petCategory,petBreed,petSize,petSex,petAge
 async function registerPets(connection, dogs,userId) {
   console.log("DAO 에서 dogs");
   console.log(dogs);
@@ -62,6 +62,7 @@ async function registerPets(connection, dogs,userId) {
     dogInfos = [
       userId,
       dog.profileImgUrl,
+      dog.petCategory,
       dog.petName,
       dog.petAge,
       dog.petSex,
