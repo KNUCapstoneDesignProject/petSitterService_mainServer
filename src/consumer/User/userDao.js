@@ -220,6 +220,26 @@ async function postUserFriend(connection,firstId,secondId) {
   return getUserFriendsResponse;
 }
 
+
+async function getBookMark(connection,customerId) {
+  // nickName,profileImg,kakaoEmail,sex
+
+  const getBookMarkQuery = `
+        SELECT PetSitters.petSitterId,petSitterName,sex,age,careType,isAgreeSharingLocation_YN,isAgreeToFilm_YN,isPossibleCareOldPet_YN,isWalkable_YN FROM PetSitters
+        RIGHT JOIN BookMarks BM on PetSitters.petSitterId = BM.petSitterId
+        WHERE BM.customerId=${customerId};
+    `;
+  
+  
+
+  const getBookMarkResponse = await connection.query(
+    getBookMarkQuery
+  );
+
+
+  return getBookMarkResponse;
+}
+
 module.exports = {
   insertUserInfo,
   getStatus,
@@ -231,4 +251,5 @@ module.exports = {
   getUserPets,
   getUserFriends,
   postUserFriend,
+  getBookMark,
 };

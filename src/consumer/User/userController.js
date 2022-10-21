@@ -148,6 +148,15 @@ exports.postUserFriend = async function (req, res) {
   return res.send(postUserFriendResponse);
 };
 
+exports.getBookMark = async function (req, res) {
+  const customerId=req.params.customerId;
+ 
+
+  const getBookMarkResponse = await userProvider.getBookMark(customerId);
+
+  return res.send(getBookMarkResponse);
+};
+
 // TODO: After 로그인 인증 방법 (JWT)
 /**
  * API No. 4

@@ -17,6 +17,8 @@ module.exports = function (app) {
   app.get('/customer/:customerId/friends',user.getUserFriends);
 
   app.get('/customer/:customerId',user.userInfo);
+
+  app.get('/customer/:customerId/bookmarks',user.getBookMark);
   //   // TODO: After 로그인 인증 방법 (JWT)
   //   // 1. 로그인 하기 API (JWT 생성)
   /** @swagger

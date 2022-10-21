@@ -87,6 +87,20 @@ exports.getUserFriends=async function(customerId){
     }
 }
 
+exports.getBookMark=async function(customerId){
+    const connection=await pool.getConnection(async (conn) => conn);
+
+    try{
+        const userBookMarks=await userDao.getBookMark(connection,customerId);
+
+        return response(baseResponse.SUCCESS,userBookMarks);
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();   
+    }
+}
+
 exports.postUserFriend=async function(myId,friendId){
     const connection=await pool.getConnection(async (conn) => conn);
     let firstId=myId;
