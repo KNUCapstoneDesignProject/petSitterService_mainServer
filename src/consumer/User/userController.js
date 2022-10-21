@@ -15,6 +15,88 @@ exports.getTest = async function (req, res) {
     return res.send(response(baseResponse.SUCCESS))
 }
 
+exports.getStatus = async function (req, res) {
+  const customerId=req.params.customerId;
+
+  const getStatusResponse=await userService.getStatus(customerId);
+  return res.send(getStatusResponse);
+}
+
+exports.patchUserInfo=async function(req,res){
+  const patchInfo=req.body;
+  const customerId=req.params.customerId;
+
+  const getStatusResponse=await userService.getStatus(customerId);
+  
+  let userStatus=getStatusResponse.result.status;
+  if(userStatus==="STEP1")
+    userStatus="STEP2";
+  
+  const patchUserInfoResponse=await userService.patchUserInfo(customerId,patchInfo,userStatus);
+
+  return res.send(patchUserInfoResponse);
+}
+
+
+exports.postUserPets=async function(req,res){
+  const newPets=req.body.dogs;
+  const customerId=req.params.customerId;
+
+  const getStatusResponse=await userService.getStatus(customerId);
+
+  let userStatus=getStatusResponse.result.status;
+  if(userStatus==="STEP2")
+    userStatus="COMPLETED";
+
+  const postUserPetsResponse=await userService.postUserPets(customerId,newPets,userStatus);
+
+  return res.send(postUserPetsResponse);
+}
+
+exports.userInfoDetail=async function(req,res){
+  const customerId=req.params.customerId;
+
+
+  const getUserInfoDetailResponse=await userProvider.getUserInfoDetail(customerId);
+
+  return res.send(getUserInfoDetailResponse);
+}
+
+exports.userInfo=async function(req,res){
+  const customerId=req.params.customerId;
+
+
+  const getUserInfoResponse=await userProvider.getUserInfo(customerId);
+
+  return res.send(getUserInfoResponse);
+}
+
+exports.userAddress=async function(req,res){
+  const customerId=req.params.customerId;
+
+
+  const getUserAddressResponse=await userProvider.getUserAddress(customerId);
+
+  return res.send(getUserAddressResponse);
+}
+
+exports.userPets=async function(req,res){
+  const customerId=req.params.customerId;
+
+
+  const getUserPetsResponse=await userProvider.getUserPets(customerId);
+
+  return res.send(getUserPetsResponse);
+}
+
+exports.getUserFriends=async function(req,res){
+  const customerId=req.params.customerId;
+
+
+  const getUserFriendsResponse=await userProvider.getUserFriends(customerId);
+
+  return res.send(getUserFriendsResponse);
+}
 /**
  * API No. 1
  * API Name : 유저 생성 (회원가입) API
@@ -30,42 +112,41 @@ exports.postUsers = async function (req, res) {
    */
   console.log("post Users 실행");
   const { nickName,profileImg,kakaoEmail,sex } = req.body;
-
-  // 빈 값 체크
-  if (!nickName) return errResponse(baseResponse.SIGNUP_NICKNAME_EMPTY);
-  if (!profileImg) return errResponse(baseResponse.SIGNUP_PROFILE_IMG_EMPTY);
-  
+  console.log("뭔데이거");
+  // 빈 값 
+  console.log(!nickName);
+  console.log(profileImg);
+  console.log(kakaoEmail);
+  console.log(sex);
+  if (!nickName)   return res.send(errResponse(baseResponse.SIGNUP_NICKNAME_EMPTY));
+  if (!profileImg) return res.send( errResponse(baseResponse.SIGNUP_PROFILE_IMG_EMPTY));
+  if (!kakaoEmail)  return res.send( errResponse(baseResponse.SIGNUP_EMAIL_EMPTY));
+  if (!sex)  return res.send(errResponse(baseResponse.SIGNUP_SEX_EMPTY));
 
   // 길이 체크
-  if (idStr.length > 30)
-    return res.send(response(baseResponse.SIGNUP_ID_LENGTH));
-
-  if (dogs.length<1)
-    return res.send(response(baseResponse.SIGNUP_NAME_EMPTY));
+  
   // 형식 체크 (by 정규표현식)
-  //TODO 아이디에는 영어,숫자를 제외하고 불가능하게 한다.
-  // if (!regexidStr.test(idStr))
-  //   return res.send(response(baseResponse.SIGNUP_ID_ERROR_TYPE));
-
-  //TODO password는 영어 소,대문자,숫자,특수문자 필수포함에 8자 이상으로 한다.
-  //TODO 주소는 실제 존재하는 주소인지를 확인한다.
-  //TODO 강아지는 최소 한마리이상 포함시킨다.
-  //TODO 휴대폰번호는 010-0000-0000형식을 지켰는지 확인한다.
-  //
-
+  console.log("사실 여까지 오는것도 이상하긴함");
   const signUpResponse = await userService.createUser(
-    idStr,
-    userName,
-    password,
-    phoneNumber,
-    address,
-    dogs
+    nickName,
+    profileImg,
+    kakaoEmail,
+    sex
   );
 
   return res.send(signUpResponse);
 };
 
 
+exports.postUserFriend = async function (req, res) {
+  const newFriendId = req.body.friendId;
+  const myId=req.params.customerId;
+ 
+
+  const postUserFriendResponse = await userProvider.postUserFriend(myId,newFriendId);
+
+  return res.send(postUserFriendResponse);
+};
 
 // TODO: After 로그인 인증 방법 (JWT)
 /**

@@ -1,7 +1,6 @@
 const {logger} = require("../../../config/winston");
 const {pool} = require("../../../config/database");
 const secret_config = require("../../../config/secret");
-const serviceProvider = require("../Service/serviceProvider");
 const userProvider = require("./userProvider");
 const userDao = require("./userDao");
 const baseResponse = require("../../../config/baseResponseStatus");
@@ -10,36 +9,30 @@ const {errResponse} = require("../../../config/response");
 
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const {connect} = require("http2");
 
 // Service: Create, Update, Delete 비즈니스 로직 처리
 
-exports.createUser = async function (idStr,userName,password,phoneNumber,address,dogs) {
+exports.createUser = async function (
+    nickName,
+    profileImg,
+    kakaoEmail,
+    sex
+    ) {
     connection = await pool.getConnection(async (conn) => conn);
     
     try {
 
         await connection.beginTransaction();
-        //아이디 중복 확인
-        const userRows = await userProvider.idStrCheck(idStr);
-        if (userRows.length > 0)
-            return errResponse(baseResponse.SIGNUP_REDUNDANT_ID);
+       
+        const insertUserInfoParams = [nickName,profileImg,kakaoEmail,sex];
 
-        // // 비밀번호 암호화
-        const hashedPassword = await crypto
-            .createHash("sha512")
-            .update(password)
-            .digest("hex");
-
-        const insertUserInfoParams = [idStr,userName,hashedPassword,phoneNumber];
-
+        console.log("들어는 왔냐?");
         const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
-        await userDao.insertAddress(connection, userIdResult[0].insertId, address, "DEFAULT");
-        await userDao.registerPets(connection, dogs, userIdResult[0].insertId);
-
+        
         console.log(`추가된 회원 : ${userIdResult[0].insertId}`)
+        
         await connection.commit();
-        return response(baseResponse.SUCCESS);
+        return response(baseResponse.SUCCESS_SIGNUP);
 
 
     } catch (err) {
@@ -108,3 +101,61 @@ exports.postSignIn = async function (idStr, password) {
         return errResponse(baseResponse.DB_ERROR);
     }
 };
+
+exports.getStatus=async function(customerId){
+    connection = await pool.getConnection(async (conn) => conn);
+
+    try{
+
+        const userStatus=await userDao.getStatus(connection,customerId);
+        return response(baseResponse.SUCCESS,userStatus);
+
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();
+    }
+
+    
+}
+
+exports.patchUserInfo=async function(customerId,patchInfo,userStatus){
+    connection = await pool.getConnection(async (conn) => conn);
+
+    try{
+        await userDao.patchUserInfo(connection,customerId,patchInfo,userStatus);
+        return response(baseResponse.SUCCESS);
+
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();
+    }
+
+    
+}
+
+exports.postUserPets=async function(customerId,newPets,userStatus){
+    connection = await pool.getConnection(async (conn) => conn);
+
+    try{
+        connection.beginTransaction()
+
+        console.log(newPets.length);
+        for(i=0; i<newPets.length; i++){
+            await userDao.postUserPets(connection,customerId,newPets[i]);
+        }
+        console.log(userStatus);
+        await userDao.patchUserInfo(connection,customerId,null,userStatus);
+        console.log("여기");
+        connection.commit();
+        return response(baseResponse.SUCCESS);
+
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();
+    }
+
+    
+}

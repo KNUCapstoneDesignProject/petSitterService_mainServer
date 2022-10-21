@@ -4,8 +4,19 @@ module.exports = function (app) {
 
 
   // 0. 테스트 API
-  app.get('/app/test', user.getTest)
+  app.get('/customers/test', user.getTest)
 
+  app.get('/customers/:customerId/status',user.getStatus);
+
+  app.get('/customers/:customerId/detail',user.userInfoDetail);
+
+  app.get('/customer/:customerId/address',user.userAddress);
+
+  app.get('/customer/:customerId/pets',user.userPets);
+
+  app.get('/customer/:customerId/friends',user.getUserFriends);
+
+  app.get('/customer/:customerId',user.userInfo);
   //   // TODO: After 로그인 인증 방법 (JWT)
   //   // 1. 로그인 하기 API (JWT 생성)
   /** @swagger
@@ -68,8 +79,7 @@ module.exports = function (app) {
   * */
   app.post("/consumer/login", user.login);
   
-  /**
-  * @swagger
+  /** @swagger
   * paths:
   *  /consumer/user:
   *   post:
@@ -154,8 +164,13 @@ module.exports = function (app) {
   *      
   */
   //   // 2. POST 유저 생성 (회원가입) API
-  app.post("/consumer/user", user.postUsers);
+  app.post("/customer/user", user.postUsers);
 
+  app.post("/customer/:customerId/pets",user.postUserPets);
+  
+  app.post("/customer/:customerId/friend",user.postUserFriend);
+
+  app.patch('/customer/:customerId/userInfo',user.patchUserInfo);
 };
 
 

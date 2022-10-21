@@ -35,6 +35,7 @@ module.exports = {
     code: 2003,
     message: "이메일을 형식을 정확하게 입력해주세요.",
   },
+  SUCCESS_SIGNUP: { isSuccess: true, code: 1000, message: "회원가입 성공" },
   SIGNUP_PASSWORD_EMPTY: {
     isSuccess: false,
     code: 2004,
@@ -80,6 +81,16 @@ module.exports = {
     isSuccess: false,
     code: 2012,
     message: "프로필이미지를 등록해주세요",
+  },
+  SIGNUP_EMAIL_EMPTY:{
+    isSuccess: false,
+    code: 2013,
+    message: "이메일을 등록해주세요",
+  },
+  SIGNUP_SEX_EMPTY:{
+    isSuccess: false,
+    code: 2014,
+    message: "성별을 등록해주세요",
   },
 
   SIGNIN_EMAIL_EMPTY: {
