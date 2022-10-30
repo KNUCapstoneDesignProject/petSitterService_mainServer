@@ -124,3 +124,17 @@ exports.postUserFriend=async function(myId,friendId){
         connection.release();   
     }
 }
+
+exports.getReviews=async function(){
+    const connection=await pool.getConnection(async (conn) => conn);
+
+    try{
+        const retrieveReviewsResult=await userDao.getReviews(connection);
+
+        return response(baseResponse.SUCCESS,retrieveReviewsResult);
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();   
+    }
+}

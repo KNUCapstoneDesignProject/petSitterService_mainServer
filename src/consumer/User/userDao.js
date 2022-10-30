@@ -240,7 +240,27 @@ async function getBookMark(connection,customerId) {
   return getBookMarkResponse;
 }
 
+async function getReviews(connection) {
+  // nickName,profileImg,kakaoEmail,sex
+
+  const getBookMarkQuery = `
+        SELECT PetSitters.petSitterId,petSitterName,sex,age,careType,isAgreeSharingLocation_YN,isAgreeToFilm_YN,isPossibleCareOldPet_YN,isWalkable_YN FROM PetSitters
+        RIGHT JOIN BookMarks BM on PetSitters.petSitterId = BM.petSitterId
+        WHERE BM.customerId=${customerId};
+    `;
+  
+  
+
+  const getBookMarkResponse = await connection.query(
+    getBookMarkQuery
+  );
+
+
+  return getBookMarkResponse;
+}
+
 module.exports = {
+  getReviews,
   insertUserInfo,
   getStatus,
   patchUserInfo,

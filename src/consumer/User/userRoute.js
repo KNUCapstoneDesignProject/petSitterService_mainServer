@@ -81,7 +81,9 @@ module.exports = function (app) {
   
   app.post("/customer/:customerId/friend",user.postUserFriend);
 
-  app.patch('/customer/:customerId/userInfo',user.patchUserInfo);
+  app.patch('/customer/:customerId/userInfo', user.patchUserInfo);
+  
+  app.get('/reviews', user.getReviews);
 };
 
 
