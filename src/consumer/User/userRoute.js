@@ -21,11 +21,69 @@ module.exports = function (app) {
   app.get('/customer/:customerId/bookmarks',user.getBookMark);
   //   // TODO: After 로그인 인증 방법 (JWT)
   //   // 1. 로그인 하기 API (JWT 생성)
-  app.post("/consumer/login", user.login);
-  
   /** @swagger
   * paths:
   *  /consumer/login:
+  *   post:
+  *     tags: [Consumer/Users]
+  *     summary: 로그인 API
+  *     consumes:
+  *       application/json
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json: 
+  *           schema:
+  *             type: object
+  *             properties:
+  *               idStr:
+  *                 type: string
+  *                 example: alsdnrdl01
+  *               password:
+  *                 type: string
+  *                 example: Aa1234@
+  *                 description: 대소문자숫자특수문자포함 8자이상, 암호화 안하고 평문으로 보냄
+  *             
+  *     responses:
+  *       "2000":
+  *         description: 로그인 성공!
+  *         contnet:
+  *           application:json
+  *       "3003":
+  *         description: 아이디가 잘못 되었습니다.
+  *       "3004":
+  *         description: 비밀번호가 잘못 되었습니다.
+  *       "4000":
+  *         description: 데이터 베이스 에러 
+  *     
+  * definitions:
+  *   Pets:
+  *     type: object
+  *     properties:
+  *         petName:
+  *             type: string
+  *         petBreed:
+  *             type: string
+  *         petAge:
+  *             type: integer
+  *         petSex:
+  *             type: string
+  *             description: MALE or FEMALE
+  *         petSize:
+  *             type: string
+  *             description: SMALL,MEDIUM,LARGE
+  *         profileImgUrl:
+  *             type: string
+  * 
+  * 
+  *      
+  * 
+  * */
+  app.post("/consumer/login", user.login);  
+  
+  /** @swagger
+  * paths:
+  *  /consumer/user:
   *   post:
   *     tags: [Consumer/Users]
   *     summary: 회원가입 API
@@ -38,38 +96,71 @@ module.exports = function (app) {
   *           schema:
   *             type: object
   *             properties:
-  *               nickName:
+  *               idStr:
+  *                 type: string
+  *                 example: alsdnrdl01
+  *               userName:
   *                 type: string
   *                 example: 정민욱
-  *                 description: 이름대신 가져오는 특성
-  *               profileImg:
+  *               password:
   *                 type: string
-  *                 example: https://이미지url
-  *               kakaoEmail:
+  *                 example: Aa1234@
+  *                 description: 대소문자숫자특수문자포함 8자이상, 암호화 안하고 평문으로 보냄
+  *               phoneNumber:
   *                 type: string
-  *                 example: email@naver.com
-  *                 description: 카카오 아이디
-  *               sex:
+  *                 example: "01012341234"
+  *                 description: string형태인거 주의!, '-'포함안함, 국가코드 포함안함.휴대폰번호만인정.
+  *               address:
   *                 type: string
-  *                 example: "M"
-  *                 description: M or F
+  *                 example: 내 주소가 궁금해?ㅎ
+  *               dogs:
+  *                 type: array 
+  *                 items:
+  *                   $ref: '#/definitions/Pets'
+  *             
   *             
   *     responses:
   *       "1000":
   *         description: 회원가입 성공!
   *         contnet:
   *           application:json
-  *       "2006":
-  *         description: 닉네임을 입력해주세요
-  *       "2012":
-  *         description: 프로필이미지를 등록해주세요
-  *       "2013":
-  *         description: 이메일을 등록해주세요
-  *       "2014":
-  *         description: 성별을 등록해주세요
+  *       "2001":
+  *         description: 아이디를 입력해주세요
+  *       "2004":
+  *         description: 비밀번호를 입력 해주세요.
+  *       "2008":
+  *         description: 전화번호를 입력해주세요.
+  *       "2009":
+  *         description: 주소를 입력해주세요
+  *       "2010":
+  *         description: 이름을 입력해주세요.
+  *       "3001":
+  *         description: 중복된 아이디 입니다.
   *       "4000":
   *         description: 데이터 베이스 에러
   *     
+  * definitions:
+  *   Pets:
+  *     type: object
+  *     properties:
+  *         petName:
+  *             type: string
+  *         petCategory:
+  *             type: string
+  *             description: DOG | CAT
+  *             example: DOG
+  *         petBreed:
+  *             type: string
+  *         petAge:
+  *             type: integer
+  *         petSex:
+  *             type: string
+  *             description: MALE or FEMALE
+  *         petSize:
+  *             type: string
+  *             description: SMALL,MEDIUM,LARGE
+  *         profileImgUrl:
+  *             type: string
   * 
   * 
   *      
@@ -81,9 +172,9 @@ module.exports = function (app) {
   
   app.post("/customer/:customerId/friend",user.postUserFriend);
 
-  app.patch('/customer/:customerId/userInfo', user.patchUserInfo);
-  
-  app.get('/reviews', user.getReviews);
+  app.patch('/customer/:customerId/userInfo',user.patchUserInfo);
+
+  app.get("reviews",user.getReviews);
 };
 
 
