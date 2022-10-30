@@ -130,8 +130,58 @@ exports.getReviews=async function(){
 
     try{
         const retrieveReviewsResult=await userDao.getReviews(connection);
-
         return response(baseResponse.SUCCESS,retrieveReviewsResult);
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();   
+    }
+}
+
+exports.getReviewsDetail=async function(){
+    const connection=await pool.getConnection(async (conn) => conn);
+
+    try{
+        const retrieveReviewsResult=await userDao.getReviewsDetail(connection);
+        return response(baseResponse.SUCCESS,retrieveReviewsResult);
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();   
+    }
+}
+
+exports.getCurrentService=async function(userId){
+    const connection=await pool.getConnection(async (conn) => conn);
+
+    try{
+        connection.beginTransaction();
+        const ServiceInfo=await userDao.getCurrentServiceInfo(connection);
+        const ServicePets=await userDao.getCurrentServicePets(connection,ServiceInfo.serviceId);
+        ServiceInfo.pets=ServicePets;
+        delete ServiceInfo.serviceId;
+
+
+        connection.commit();
+        return response(baseResponse.SUCCESS,ServiceInfo);
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();   
+    }
+}
+
+exports.retrievePetsittersSameLocation=async function(userId,filter){
+    const connection=await pool.getConnection(async (conn) => conn);
+
+    try{
+        connection.beginTransaction();
+        const customerCity=await userDao.getUserCity(connection,userId);
+        console.log(customerCity.city);
+        const petSitterList=await userDao.retrievePetsittersSameLocation(connection,userId,customerCity.city,filter);
+
+        connection.commit();
+        return response(baseResponse.SUCCESS,petSitterList);
     }catch(err){
         return errResponse(baseResponse.DB_ERROR);
     }finally{

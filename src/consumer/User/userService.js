@@ -159,3 +159,19 @@ exports.postUserPets=async function(customerId,newPets,userStatus){
 
     
 }
+
+exports.patchLike = async function (serviceId,customerId,isLike) {
+    connection=await pool.getConnection(async (conn) => conn);
+
+    try{
+        await userDao.patchLike(connection,serviceId,customerId,isLike);
+
+        return response(baseResponse.SUCCESS);
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();
+    }
+    
+  
+  }

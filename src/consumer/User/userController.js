@@ -187,7 +187,40 @@ exports.check = async function (req, res) {
 
 exports.getReviews = async function (req, res) {
   
-  const retrieveReviewsResult = userProvider.getReviews();
+  const retrieveReviewsResult = await userProvider.getReviews();
 
-  return retrieveReviewsResult;
+  return res.send(retrieveReviewsResult);
+}
+
+exports.getReviewsDetail = async function (req, res) {
+  
+  const retrieveReviewsResult = await userProvider.getReviewsDetail();
+
+  return res.send(retrieveReviewsResult);
+}
+
+
+exports.patchLike = async function (req, res) {
+  const {serviceId,customerId,isLike}=req.body;
+
+  const patchLikeResponse = await userService.patchLike(serviceId,customerId,isLike);
+
+  return res.send(patchLikeResponse);
+}
+
+exports.getCurrentService = async function (req, res) {
+  const userId=req.params.userId;
+
+  const getCurrentServiceResponse = await userProvider.getCurrentService(userId);
+
+  return res.send(getCurrentServiceResponse);
+}
+
+exports.retrievePetsittersSameLocation = async function (req, res) {
+  const userId=req.params.userId;
+  const filter=req.query;
+
+  const retrievePetSittersResponse = await userProvider.retrievePetsittersSameLocation(userId,filter);
+
+  return res.send(retrievePetSittersResponse);
 }

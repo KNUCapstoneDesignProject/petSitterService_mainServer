@@ -243,24 +243,178 @@ async function getBookMark(connection,customerId) {
 async function getReviews(connection) {
   // nickName,profileImg,kakaoEmail,sex
 
-  const getBookMarkQuery = `
-        SELECT PetSitters.petSitterId,petSitterName,sex,age,careType,isAgreeSharingLocation_YN,isAgreeToFilm_YN,isPossibleCareOldPet_YN,isWalkable_YN FROM PetSitters
-        RIGHT JOIN BookMarks BM on PetSitters.petSitterId = BM.petSitterId
-        WHERE BM.customerId=${customerId};
+  const getReviewsQuery = `
+      select C.customerName,C.profileImgUrl as profileImgOfCustomer,SC.reviewContent,Services.category,P.petSitterName,P.petSitterProfileImg from Services
+      left join Service_Customer SC on Services.serviceId = SC.serviceId
+      left join Customers C on SC.customerId = C.customerId
+      left join PetSitters P on P.petSitterId=Services.petSitterId;
     `;
   
   
 
-  const getBookMarkResponse = await connection.query(
-    getBookMarkQuery
+  const getReviewsResponse = await connection.query(
+    getReviewsQuery
   );
 
 
-  return getBookMarkResponse;
+  return getReviewsResponse[0];
 }
 
+async function getReviewsDetail(connection) {
+  // nickName,profileImg,kakaoEmail,sex
+
+  const getReviewsDetailQuery = `
+      select C.customerName,C.profileImgUrl as profileImgOfCustomer,SC.reviewPicture,SC.isLike_YN,SC.reviewContent,Services.category,P.petSitterName,P.petSitterProfileImg from Services
+      left join Service_Customer SC on Services.serviceId = SC.serviceId
+      left join Customers C on SC.customerId = C.customerId
+      left join PetSitters P on P.petSitterId=Services.petSitterId;
+    `;
+  
+  
+
+  const getReviewsResponse = await connection.query(
+    getReviewsDetailQuery
+  );
+
+
+  return getReviewsResponse[0];
+}
+
+async function patchLike(connection,serviceId,customerId,isLike) {
+
+  const patchLikeQuery = `
+  UPDATE Service_Customer
+  SET isLike_YN='${isLike}'
+  WHERE serviceId=${serviceId} and customerId=${customerId}
+    `;
+  
+  
+
+  const patchLikeResponse = await connection.query(
+    patchLikeQuery
+  );
+
+
+  return patchLikeResponse[0];
+}
+
+async function getCurrentServiceInfo(connection,userId) {
+
+  const getCurrentServiceInfoQuery = `
+  SELECT Services.serviceId,petSitterId,category,DATE_FORMAT(planStartTime,'%Y-%m-%d %H시') as planStartTime,DATE_FORMAT(planEndTime,'%Y-%m-%d %H시') AS planEndTime,customerRequestContent FROM Services
+left join Service_Customer SC on Services.serviceId = SC.serviceId
+where SC.customerId=4 and Services.status="ONGOING";
+    `;
+  
+  
+
+  const getCurrentServiceInfoResponse = await connection.query(
+    getCurrentServiceInfoQuery
+  );
+
+
+  return getCurrentServiceInfoResponse[0][0];
+}
+
+async function getCurrentServicePets(connection,serviceId) {
+
+  const getCurrentServicePetsQuery = `
+  select petName,petSex,petSize,petAge,petSpecies,profileImg from Service_Customer_Pet
+  left join Pets P on Service_Customer_Pet.petId = P.petId
+  where serviceId=${serviceId};
+    `;
+  
+
+  const getCurrentServicePetsResponse = await connection.query(
+    getCurrentServicePetsQuery
+  );
+
+  return getCurrentServicePetsResponse[0];
+}
+
+async function retrievePetsittersSameLocation(connection,userId,city,filter) {
+  //fileter: sex,isAgreeToFilm_YN,isWalkable_YN,isAgreeSharingLocation_YN,isPossibleCareOldPet,hasPet_YN
+  let whereString=''
+  if(filter.sex)
+     whereString+=` and PetSitters.sex='${filter.sex}'`;
+    
+  if(filter.isAgreeToFilm_YN)
+     whereString+=` and PetSitters.isAgreeToFilm_YN='${filter.isAgreeToFilm_YN}'`
+
+  if(filter.isWalkable_YN)
+     whereString+=` and PetSitters.isWalkable_YN='${filter.isWalkable_YN}'`
+  
+  if(filter.isAgreeSharingLocation_YN)
+     whereString+=` and PetSitters.isAgreeSharingLocation_YN='${filter.isAgreeSharingLocation_YN}'`
+     
+  if(filter.isPossibleCareOldPet_YN)
+     whereString+=` and PetSitters.isPossibleCareOldPet_YN='${filter.isPossibleCareOldPet_YN}'`
+  
+  if(filter.hasPet_YN)
+     whereString+=` and PetSitters.hasPet_YN='${filter.hasPet_YN}'`
+  
+
+  const getCurrentServiceInfoQuery = `
+  SELECT petSitterProfileImg,
+       petSitterName,
+       career,
+       hasPet_YN,
+       sex,
+       age,
+       selfIntroduction,
+       isAgreeToFilm_YN,
+       isAgreeSharingLocation_YN,
+       isWalkable_YN,
+       isPossibleCareOldPet_YN,
+       CASE
+           WHEN BM.customerId THEN 'Y'
+           ELSE 'N'
+       END
+       AS isBookMark
+FROM PetSitters
+left join (
+    SELECT * FROM BookMarks
+    WHERE customerId=${userId}
+) BM on BM.petSitterId=PetSitters.petSitterId
+WHERE SUBSTRING_INDEX(address,' ',1)='${city}'
+    `+whereString;
+  console.log(getCurrentServiceInfoQuery);
+  
+
+  const getCurrentServiceInfoResponse = await connection.query(
+    getCurrentServiceInfoQuery
+  );
+
+
+  return getCurrentServiceInfoResponse[0];
+}
+
+async function getUserCity(connection,userId) {
+
+  const getUserCityQuery = `
+  select SUBSTRING_INDEX(address,' ',1) as city from Customers
+WHERE customerId=${userId};
+    `;
+  
+  
+
+  const getUserCityResponse = await connection.query(
+    getUserCityQuery
+  );
+
+
+  return getUserCityResponse[0][0];
+}
+
+
 module.exports = {
+  retrievePetsittersSameLocation,
+  getUserCity,
+  getCurrentServicePets,
+  getCurrentServiceInfo,
+  patchLike,
   getReviews,
+  getReviewsDetail,
   insertUserInfo,
   getStatus,
   patchUserInfo,

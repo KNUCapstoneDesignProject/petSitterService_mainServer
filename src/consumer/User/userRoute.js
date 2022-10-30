@@ -174,7 +174,15 @@ module.exports = function (app) {
 
   app.patch('/customer/:customerId/userInfo',user.patchUserInfo);
 
-  app.get("reviews",user.getReviews);
+  app.get("/reviews/detail",user.getReviewsDetail);
+
+  app.get("/reviews",user.getReviews);
+
+  app.get("/users/:userId/petsitters/same-location",user.retrievePetsittersSameLocation);
+  
+  app.patch("/service/is-like",user.patchLike);
+
+  app.get('/users/:userId/current-service',user.getCurrentService);
 };
 
 
