@@ -226,6 +226,17 @@ exports.retrievePetsittersSameLocation = async function (req, res) {
 }
 
 exports.postReservation = async function (req, res) {
+  //강아지 선택(다중선택 가능), 돌봄 날짜, 돌봄 시간, 픽업유무,요청사항,돌봄종류(강아지,고양이,함께)
+  //함께돌봄의 경우: 함께하는 친구,반려견 (친구꺼까지)
+  /*
+    {
+      category: dog,
+      pets:[dog,dog],
+      reservationDate:"2022-10-31",
+      reservationStartTime:"13:00"
+      
+    }
+  */
   const newFriendId = req.body.friendId;
   const myId=req.params.customerId;
 
