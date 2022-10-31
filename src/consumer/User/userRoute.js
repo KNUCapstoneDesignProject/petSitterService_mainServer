@@ -182,7 +182,9 @@ module.exports = function (app) {
   
   app.patch("/service/is-like",user.patchLike);
 
-  app.get('/users/:userId/current-service',user.getCurrentService);
+  app.get('/users/:userId/current-service', user.getCurrentService);
+  
+  app.post("/service/reservation", user.postReservation);
 };
 
 

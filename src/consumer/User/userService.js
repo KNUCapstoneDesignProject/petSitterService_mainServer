@@ -141,10 +141,8 @@ exports.postUserPets=async function(customerId,newPets,userStatus){
     try{
         connection.beginTransaction()
 
-        console.log(newPets.length);
-        for(i=0; i<newPets.length; i++){
-            await userDao.postUserPets(connection,customerId,newPets[i]);
-        }
+        await userDao.postUserPets(connection,customerId,newPets[i]);
+        
         console.log(userStatus);
         await userDao.patchUserInfo(connection,customerId,null,userStatus);
         console.log("여기");

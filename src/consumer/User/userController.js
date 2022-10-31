@@ -39,7 +39,7 @@ exports.patchUserInfo=async function(req,res){
 
 
 exports.postUserPets=async function(req,res){
-  const newPets=req.body.dogs;
+  const newPet=req.body.dog;
   const customerId=req.params.customerId;
 
   const getStatusResponse=await userService.getStatus(customerId);
@@ -224,3 +224,12 @@ exports.retrievePetsittersSameLocation = async function (req, res) {
 
   return res.send(retrievePetSittersResponse);
 }
+
+exports.postReservation = async function (req, res) {
+  const newFriendId = req.body.friendId;
+  const myId=req.params.customerId;
+
+  const postUserFriendResponse = await userProvider.postUserFriend(myId,newFriendId);
+
+  return res.send(postUserFriendResponse);
+};
