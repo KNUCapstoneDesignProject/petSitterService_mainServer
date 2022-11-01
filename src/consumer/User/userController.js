@@ -230,17 +230,23 @@ exports.postReservation = async function (req, res) {
   //함께돌봄의 경우: 함께하는 친구,반려견 (친구꺼까지)
   /*
     {
-      category: dog,
+      bookerId:4,
+      petSitterId:1,
+      bookType:Consignment,
+      petType:dog,
       pets:[dog,dog],
       reservationDate:"2022-10-31",
-      reservationStartTime:"13:00"
-      
+      reservationStartTime:"13:00",
+      reservationEndTime:"13:30",
+      hasPickUp:Y,
+      hasWalk:Y,
+      hasBath:Y,
+      requestComment:"애기 밥은 식탁위에",
     }
   */
-  const newFriendId = req.body.friendId;
-  const myId=req.params.customerId;
+  const reservationInfo=req.body;
 
-  const postUserFriendResponse = await userProvider.postUserFriend(myId,newFriendId);
+  const postReservationResponse = await userProvider.postReservation(reservationInfo);
 
-  return res.send(postUserFriendResponse);
+  return res.send(postReservationResponse);
 };
