@@ -155,7 +155,7 @@ async function getUserAddress(connection,customerId) {
   );
 
 
-  return getUserInfoDetailResponse[0];
+  return getUserInfoDetailResponse[0][0];
 }
 
 async function getUserPets(connection,customerId) {

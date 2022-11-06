@@ -141,7 +141,7 @@ exports.postUserPets=async function(customerId,newPets,userStatus){
     try{
         connection.beginTransaction()
 
-        await userDao.postUserPets(connection,customerId,newPets[i]);
+        await userDao.postUserPets(connection,customerId,newPets);
         
         console.log(userStatus);
         await userDao.patchUserInfo(connection,customerId,null,userStatus);
@@ -163,6 +163,25 @@ exports.patchLike = async function (serviceId,customerId,isLike) {
 
     try{
         await userDao.patchLike(connection,serviceId,customerId,isLike);
+
+        return response(baseResponse.SUCCESS);
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();
+    }
+    
+  
+  }
+
+  exports.postReservation = async function (reservationInfo) {
+    connection=await pool.getConnection(async (conn) => conn);
+    //services테이블 삽입
+    //service-customer
+    //service_customer_pet테이블 삽입
+
+    try{
+        await userDao.postReservationInfo(connection,serviceId,customerId,isLike);
 
         return response(baseResponse.SUCCESS);
     }catch(err){
