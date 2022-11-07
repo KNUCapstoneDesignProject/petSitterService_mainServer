@@ -8,3 +8,40 @@
 {"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 12:07:18"}
 {"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 12:07:33"}
 {"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 12:22:11"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 12:36:42"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 12:39:28"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 13:00:14"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 15:16:01"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 15:17:55"}
+{"level":"error","message":"App - createUser Service error\n: Duplicate entry '2147483647' for key 'Customers.PRIMARY'","timestamp":"2022-11-07 15:18:05"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 15:22:28"}
+{"level":"error","message":"App - createUser Service error\n: Duplicate entry '2147483647' for key 'Customers.PRIMARY'","timestamp":"2022-11-07 15:32:09"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 15:34:22"}
+{"level":"error","message":"App - createUser Service error\n: Duplicate entry '2147483647' for key 'Customers.PRIMARY'","timestamp":"2022-11-07 15:35:34"}
+{"level":"error","message":"App - createUser Service error\n: Duplicate entry '2147483647' for key 'Customers.PRIMARY'","timestamp":"2022-11-07 15:39:56"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 15:40:05"}
+{"level":"error","message":"App - createUser Service error\n: Duplicate entry '2147483647' for key 'Customers.PRIMARY'","timestamp":"2022-11-07 15:40:18"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 15:42:36"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 15:45:11"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 15:48:04"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 15:56:54"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:16:08"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:17:28"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:21:49"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:23:47"}
+{"level":"error","message":"App - createUser Service error\n: Cannot read properties of undefined (reading 'insertId')","timestamp":"2022-11-07 16:24:05"}
+{"level":"error","message":"App - createUser Service error\n: Cannot read properties of undefined (reading 'insertId')","timestamp":"2022-11-07 16:24:42"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:25:05"}
+{"level":"error","message":"App - createUser Service error\n: Cannot read properties of undefined (reading 'insertId')","timestamp":"2022-11-07 16:25:23"}
+{"level":"error","message":"App - createUser Service error\n: Cannot read properties of undefined (reading 'insertId')","timestamp":"2022-11-07 16:26:12"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:27:32"}
+{"level":"error","message":"App - createUser Service error\n: Cannot read properties of undefined (reading 'insertId')","timestamp":"2022-11-07 16:27:56"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:28:31"}
+{"level":"error","message":"App - createUser Service error\n: res is not defined","timestamp":"2022-11-07 16:28:43"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:29:42"}
+{"level":"error","message":"App - createUser Service error\n: res is not defined","timestamp":"2022-11-07 16:30:21"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:30:59"}
+{"level":"error","message":"App - createUser Service error\n: res is not defined","timestamp":"2022-11-07 16:31:06"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:32:59"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:45:41"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-07 16:47:34"}

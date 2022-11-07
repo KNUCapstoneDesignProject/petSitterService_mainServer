@@ -6,8 +6,9 @@ async function insertUserInfo(connection, insertUserInfoParams) {
   // nickName,profileImg,kakaoEmail,sex
   const insertUserInfoQuery = `
           INSERT INTO Customers(customerId,customerName,profileImgUrl,kakaoEmail,sex,status)
-          VALUES (?, ?, ?, ?,?,"STEP1");
+          VALUES (${insertUserInfoParams[0]},"${insertUserInfoParams[1]}", "${insertUserInfoParams[2]}", "${insertUserInfoParams[3]}","${insertUserInfoParams[4]}","STEP1");
       `;
+  console.log(insertUserInfoQuery);
   const insertUserInfoRow = await connection.query(
     insertUserInfoQuery,
     insertUserInfoParams

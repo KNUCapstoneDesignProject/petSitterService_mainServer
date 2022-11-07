@@ -17,7 +17,7 @@ exports.createUser = async function (
     nickName,
     profileImg,
     kakaoEmail,
-    sex
+    sex,
     ) {
     connection = await pool.getConnection(async (conn) => conn);
     
@@ -32,7 +32,7 @@ exports.createUser = async function (
         
         
         await connection.commit();
-        return response(baseResponse.SUCCESS_SIGNUP);
+        return response(baseResponse.SUCCESS_SIGNUP,{"userId":"${userIdResult[0].insertId"});
 
 
     } catch (err) {

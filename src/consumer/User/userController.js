@@ -28,9 +28,12 @@ exports.hasId = async function (req, res) {
   const getStatusResponse=await userProvider.getUserInfo(customerId);
   console.log(getStatusResponse.result.length);
   console.log(getStatusResponse.result);
-  if(getStatusResponse.result.length>0)
-    // res.cookie('userId');
+  if (getStatusResponse.result.length > 0) {
+    console.log("for cookie");
+    console.log(getStatusResponse.result[0].customerId)
+    res.cookie('userId',getStatusResponse.result[0].customerId);
     return res.send(response(baseResponse.SUCCESS));
+  }
   else
     return res.send(response(baseResponse.HAS_NO_ID))
 
@@ -128,6 +131,7 @@ exports.postUsers = async function (req, res) {
   const { userId,nickName,profileImg,kakaoEmail,sex } = req.body;
   console.log("뭔데이거");
   // 빈 값 
+  console.log(userId);
   console.log(!nickName);
   console.log(profileImg);
   console.log(kakaoEmail);
@@ -141,15 +145,18 @@ exports.postUsers = async function (req, res) {
   // 길이 체크
   
   // 형식 체크 (by 정규표현식)
-  console.log("사실 여까지 오는것도 이상하긴함");
+  
   const signUpResponse = await userService.createUser(
     userId,
     nickName,
     profileImg,
     kakaoEmail,
-    sex
+    sex,
   );
+  console.log("사실 여까지 오는것도 이상하긴함");
+  console.log(signUpResponse);
 
+  res.cookie("userId",signUpResponse.result.userId);
   return res.send(signUpResponse);
 };
 
@@ -225,10 +232,10 @@ exports.patchLike = async function (req, res) {
 }
 
 exports.getCurrentService = async function (req, res) {
-  const userId=req.params.userId;
-
+  const userId=req.header.userId;
+  console.log("cookie 출력");
+  console.dir(userId);
   const getCurrentServiceResponse = await userProvider.getCurrentService(userId);
-
   return res.send(getCurrentServiceResponse);
 }
 
