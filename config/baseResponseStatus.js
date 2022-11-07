@@ -2,6 +2,7 @@ module.exports = {
   // Success
   SUCCESS: { isSuccess: true, code: 1000, message: "성공" },
   NO_REDUNDANT_ID: { isSuccess: true, code: 1001, message: "아이디 중복 체크 성공" },
+  HAS_NO_ID:{isSuccess: true, code: 1001, message: "hasn't id"},
   // Common
   TOKEN_EMPTY: {
     isSuccess: false,

@@ -27,6 +27,7 @@ exports.hasId = async function (req, res) {
 
   const getStatusResponse=await userProvider.getUserInfo(customerId);
   console.log(getStatusResponse.result.length);
+  console.log(getStatusResponse.result);
   if(getStatusResponse.result.length>0)
     // res.cookie('userId');
     return res.send(response(baseResponse.SUCCESS));
