@@ -162,7 +162,22 @@ async function getUserPets(connection,customerId) {
   // nickName,profileImg,kakaoEmail,sex
 
   const getUserPetsQuery = `
-      select petId,petName,petType,petSpecies,petBirth,petSize,petSex,petAge,registrationType,isNeutralize from Pets
+        select 
+          petId,
+          petName,
+          petType,
+          petSpecies,
+          DATE_FORMAT(petBirth,"%Y-%m-%d") as petBirth,
+          CASE
+              WHEN petSize="LARGE"
+              THEN "대형"
+              ELSE "소/중형"
+          END AS petSize,
+            petSex,
+            petAge,
+            registrationType,
+            isNeutralize
+      from Pets
       Where customerId=${customerId};
     `;
   
@@ -301,8 +316,9 @@ async function patchLike(connection,serviceId,customerId,isLike) {
 async function getCurrentServiceInfo(connection,userId) {
 
   const getCurrentServiceInfoQuery = `
-  SELECT Services.serviceId,petSitterId,category,DATE_FORMAT(planStartTime,'%Y-%m-%d %H시') as planStartTime,DATE_FORMAT(planEndTime,'%Y-%m-%d %H시') AS planEndTime,customerRequestContent FROM Services
+  SELECT Services.serviceId,petSitterName,category,DATE_FORMAT(planStartTime,'%Y-%m-%d %H시') as planStartTime,DATE_FORMAT(planEndTime,'%Y-%m-%d %H시') AS planEndTime,customerRequestContent FROM Services
 left join Service_Customer SC on Services.serviceId = SC.serviceId
+left join PetSitters PS on Services.petSitterId = PS.petSitterId
 where SC.customerId=4 and Services.status="ONGOING";
     `;
   
