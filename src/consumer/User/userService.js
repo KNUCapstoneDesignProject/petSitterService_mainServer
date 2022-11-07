@@ -13,6 +13,7 @@ const crypto = require("crypto");
 // Service: Create, Update, Delete 비즈니스 로직 처리
 
 exports.createUser = async function (
+    userId,
     nickName,
     profileImg,
     kakaoEmail,
@@ -24,12 +25,11 @@ exports.createUser = async function (
 
         await connection.beginTransaction();
        
-        const insertUserInfoParams = [nickName,profileImg,kakaoEmail,sex];
+        const insertUserInfoParams = [userId,nickName,profileImg,kakaoEmail,sex];
 
         console.log("들어는 왔냐?");
         const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
         
-        console.log(`추가된 회원 : ${userIdResult[0].insertId}`)
         
         await connection.commit();
         return response(baseResponse.SUCCESS_SIGNUP);
