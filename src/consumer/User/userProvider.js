@@ -45,6 +45,7 @@ exports.getUserInfo=async function(customerId){
     }
 }
 
+
 exports.getUserAddress=async function(customerId){
     const connection=await pool.getConnection(async (conn) => conn);
 

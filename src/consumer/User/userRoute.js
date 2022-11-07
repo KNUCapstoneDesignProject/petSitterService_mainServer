@@ -8,6 +8,8 @@ module.exports = function (app) {
 
   app.get('/customers/:customerId/status',user.getStatus);
 
+  app.get('/customers/:customerId/hasid',user.hasId)
+  
   app.get('/customers/:customerId/detail',user.userInfoDetail);
 
   app.get('/customer/:customerId/address',user.userAddress);

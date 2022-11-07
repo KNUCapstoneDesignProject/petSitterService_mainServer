@@ -22,6 +22,19 @@ exports.getStatus = async function (req, res) {
   return res.send(getStatusResponse);
 }
 
+exports.hasId = async function (req, res) {
+  const customerId=req.params.customerId;
+
+  const getStatusResponse=await userProvider.getUserInfo(customerId);
+  console.log(getStatusResponse.result.length);
+  if(getStatusResponse.result.length>0)
+    // res.cookie('userId');
+    return res.send(response(baseResponse.SUCCESS));
+  else
+    return res.send(response(baseResponse.HAS_NO_ID))
+
+}
+
 exports.patchUserInfo=async function(req,res){
   const patchInfo=req.body;
   const customerId=req.params.customerId;
