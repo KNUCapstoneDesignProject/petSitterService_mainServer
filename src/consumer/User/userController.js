@@ -111,13 +111,14 @@ exports.postUsers = async function (req, res) {
    * status: default로 FIRST_STEP 저장
    */
   console.log("post Users 실행");
-  const { nickName,profileImg,kakaoEmail,sex } = req.body;
+  const { userId,nickName,profileImg,kakaoEmail,sex } = req.body;
   console.log("뭔데이거");
   // 빈 값 
   console.log(!nickName);
   console.log(profileImg);
   console.log(kakaoEmail);
   console.log(sex);
+  if(!userId) return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
   if (!nickName)   return res.send(errResponse(baseResponse.SIGNUP_NICKNAME_EMPTY));
   if (!profileImg) return res.send( errResponse(baseResponse.SIGNUP_PROFILE_IMG_EMPTY));
   if (!kakaoEmail)  return res.send( errResponse(baseResponse.SIGNUP_EMAIL_EMPTY));
@@ -128,6 +129,7 @@ exports.postUsers = async function (req, res) {
   // 형식 체크 (by 정규표현식)
   console.log("사실 여까지 오는것도 이상하긴함");
   const signUpResponse = await userService.createUser(
+    userId,
     nickName,
     profileImg,
     kakaoEmail,
