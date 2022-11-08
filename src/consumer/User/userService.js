@@ -32,7 +32,7 @@ exports.createUser = async function (
         
         
         await connection.commit();
-        return response(baseResponse.SUCCESS_SIGNUP,{"userId":"${userIdResult[0].insertId"});
+        return response(baseResponse.SUCCESS_SIGNUP, { "userId": `${userIdResult[0].insertId}` });
 
 
     } catch (err) {

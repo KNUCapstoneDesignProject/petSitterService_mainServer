@@ -154,9 +154,9 @@ exports.postUsers = async function (req, res) {
     sex,
   );
   console.log("사실 여까지 오는것도 이상하긴함");
-  console.log(signUpResponse);
-
-  res.cookie("userId",signUpResponse.result.userId);
+  const cookieUser = signUpResponse.result.userId
+  console.log(cookieUser);
+  
   return res.send(signUpResponse);
 };
 
@@ -232,9 +232,10 @@ exports.patchLike = async function (req, res) {
 }
 
 exports.getCurrentService = async function (req, res) {
-  const userId=req.header.userId;
+  const userId=req.params.userId;
   console.log("cookie 출력");
-  console.dir(userId);
+  console.log(req.cookies);
+  console.log(userId);
   const getCurrentServiceResponse = await userProvider.getCurrentService(userId);
   return res.send(getCurrentServiceResponse);
 }
