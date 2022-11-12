@@ -19,8 +19,11 @@ module.exports = function () {
     app.use(cors());
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
-    // app.use(express.static(process.cwd() + '/public'));
+    
+    app.use(express.static(process.cwd() + '/image'));
 
+    console.log("???");
+    console.log(process.cwd()+'/image');
     /* App (Android, iOS) */
     // TODO: 도메인을 추가할 경우 이곳에 Route를 추가하세요.
     require('../src/consumer/User/userRoute')(app);

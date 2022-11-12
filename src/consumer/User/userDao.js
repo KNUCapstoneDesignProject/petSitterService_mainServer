@@ -241,19 +241,17 @@ async function getBookMark(connection,customerId) {
   // nickName,profileImg,kakaoEmail,sex
 
   const getBookMarkQuery = `
-        SELECT PetSitters.petSitterId,petSitterName,sex,age,careType,isAgreeSharingLocation_YN,isAgreeToFilm_YN,isPossibleCareOldPet_YN,isWalkable_YN FROM PetSitters
+        SELECT PetSitters.petSitterId,PetSitters.petSitterProfileImg,petSitterName,sex,age,careType,isAgreeSharingLocation_YN,isAgreeToFilm_YN,isPossibleCareOldPet_YN,isWalkable_YN FROM PetSitters
         RIGHT JOIN BookMarks BM on PetSitters.petSitterId = BM.petSitterId
         WHERE BM.customerId=${customerId};
     `;
-  
-  
 
   const getBookMarkResponse = await connection.query(
     getBookMarkQuery
   );
 
 
-  return getBookMarkResponse;
+  return getBookMarkResponse[0];
 }
 
 async function getReviews(connection) {
@@ -318,12 +316,12 @@ async function getCurrentServiceInfo(connection,userId) {
 
   const getCurrentServiceInfoQuery = `
   SELECT Services.serviceId,petSitterName,category,DATE_FORMAT(planStartTime,'%Y-%m-%d %H시') as planStartTime,DATE_FORMAT(planEndTime,'%Y-%m-%d %H시') AS planEndTime,customerRequestContent FROM Services
-left join Service_Customer SC on Services.serviceId = SC.serviceId
-left join PetSitters PS on Services.petSitterId = PS.petSitterId
-where SC.customerId=4 and Services.status="ONGOING";
+  left join Service_Customer SC on Services.serviceId = SC.serviceId
+  left join PetSitters PS on Services.petSitterId = PS.petSitterId
+  where SC.customerId=${userId} and Services.status="ONGOING";
     `;
   
-  
+  console.log(getCurrentServiceInfoQuery);
 
   const getCurrentServiceInfoResponse = await connection.query(
     getCurrentServiceInfoQuery
@@ -336,12 +334,12 @@ where SC.customerId=4 and Services.status="ONGOING";
 async function getCurrentServicePets(connection,serviceId) {
 
   const getCurrentServicePetsQuery = `
-  select petName,petSex,petSize,petAge,petSpecies,profileImg from Service_Customer_Pet
-  left join Pets P on Service_Customer_Pet.petId = P.petId
-  where serviceId=${serviceId};
+      select petName,petSex,petSize,petAge,petSpecies,profileImg from Service_Customer_Pet
+      left join Pets P on Service_Customer_Pet.petId = P.petId
+      where serviceId=${serviceId};
     `;
   
-
+  console.log(getCurrentServicePetsQuery);
   const getCurrentServicePetsResponse = await connection.query(
     getCurrentServicePetsQuery
   );

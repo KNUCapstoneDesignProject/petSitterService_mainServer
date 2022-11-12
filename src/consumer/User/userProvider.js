@@ -157,7 +157,9 @@ exports.getCurrentService=async function(userId){
 
     try{
         connection.beginTransaction();
-        const ServiceInfo=await userDao.getCurrentServiceInfo(connection);
+        console.log("test1");
+        const ServiceInfo=await userDao.getCurrentServiceInfo(connection,userId);
+        console.log("test2");
         const ServicePets=await userDao.getCurrentServicePets(connection,ServiceInfo.serviceId);
         ServiceInfo.pets=ServicePets;
         delete ServiceInfo.serviceId;
@@ -166,6 +168,7 @@ exports.getCurrentService=async function(userId){
         connection.commit();
         return response(baseResponse.SUCCESS,ServiceInfo);
     }catch(err){
+        logger.error(`App - getCurrentService Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }finally{
         connection.release();   

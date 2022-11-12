@@ -170,7 +170,7 @@ module.exports = function (app) {
   //   // 2. POST 유저 생성 (회원가입) API
   app.post("/customer/user", user.postUsers);
 
-  app.post("/customer/:customerId/pets",user.postUserPets);
+  app.post("/customer/:customerId/pets",user.postUserPets); // todo 버그있음
   
   app.post("/customer/:customerId/friend",user.postUserFriend);
 
@@ -186,7 +186,7 @@ module.exports = function (app) {
 
   app.get('/users/:userId/current-service', user.getCurrentService);
   
-  app.post("/service/reservation", user.postReservation);
+  app.post("/service/reservation", user.postReservation); //postman에 등록해야함.
 };
 
 

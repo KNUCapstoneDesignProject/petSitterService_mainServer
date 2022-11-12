@@ -1,0 +1,33 @@
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 04:44:29"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 04:54:20"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 05:08:13"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 05:11:35"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 05:11:41"}
+{"level":"error","message":"App - getCurrentService Service error\n: Unknown column 'undefined' in 'where clause'","timestamp":"2022-11-12 05:11:58"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 05:18:14"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 05:46:49"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 05:47:05"}
+{"level":"error","message":"App - getCurrentService Service error\n: Unknown column 'undefined' in 'where clause'","timestamp":"2022-11-12 05:47:26"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 05:48:13"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 05:48:19"}
+{"level":"error","message":"App - getCurrentService Service error\n: getCurrentServiceQuery is not defined","timestamp":"2022-11-12 05:49:52"}
+{"level":"error","message":"App - getCurrentService Service error\n: getCurrentServiceQuery is not defined","timestamp":"2022-11-12 05:50:33"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 05:50:53"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 06:18:56"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 06:19:13"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 06:19:25"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 06:25:43"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 06:26:15"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 06:26:25"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 06:26:40"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 08:36:18"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 08:40:04"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 08:40:15"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 08:40:31"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 08:43:39"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 08:44:22"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 08:44:22"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 08:44:38"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 08:45:22"}
+{"level":"error","message":"App - getCurrentService Service error\n: Cannot read properties of undefined (reading 'serviceId')","timestamp":"2022-11-12 08:46:31"}
+{"level":"info","message":"undefined - API Server Start At Port 3000","timestamp":"2022-11-12 08:50:50"}
