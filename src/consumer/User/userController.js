@@ -109,7 +109,7 @@ exports.userPets=async function(req,res){
 exports.getUserFriends=async function(req,res){
   const customerId=req.params.customerId;
 
-
+  console.log("get Friend Controller");
   const getUserFriendsResponse=await userProvider.getUserFriends(customerId);
 
   return res.send(getUserFriendsResponse);
@@ -273,4 +273,14 @@ exports.postReservation = async function (req, res) {
   const postReservationResponse = await userProvider.postReservation(reservationInfo);
 
   return res.send(postReservationResponse);
+};
+
+exports.postBookMarks = async function (req, res) {
+  /*userId,petSitterId */
+  const customerId=req.body.customerId;
+  const petSitterId=req.body.petSitterId;
+
+  const postBookMarksResponse = await userService.postBookMarks(customerId,petSitterId);
+
+  return res.send(postBookMarksResponse);
 };

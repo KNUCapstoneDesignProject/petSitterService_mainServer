@@ -163,23 +163,24 @@ async function getUserPets(connection,customerId) {
   // nickName,profileImg,kakaoEmail,sex
 
   const getUserPetsQuery = `
-        select 
-          petId,
-          petName,
-          petType,
-          petSpecies,
-          DATE_FORMAT(petBirth,"%Y-%m-%d") as petBirth,
-          CASE
-              WHEN petSize="LARGE"
-              THEN "대형"
-              ELSE "소/중형"
-          END AS petSize,
-            petSex,
-            petAge,
-            registrationType,
-            isNeutralize
-      from Pets
-      Where customerId=${customerId};
+  select
+  petId,
+  petName,
+  petType,
+  petSpecies,
+  profileImg,
+  DATE_FORMAT(petBirth,"%Y-%m-%d") as petBirth,
+  CASE
+      WHEN petSize="LARGE"
+      THEN "대형"
+      ELSE "소/중형"
+  END AS petSize,
+    petSex,
+    petAge,
+    registrationType,
+    isNeutralize
+from Pets
+Where customerId=${customerId};
     `;
   
     console.log(getUserPetsQuery);
@@ -261,7 +262,8 @@ async function getReviews(connection) {
       select C.customerName,C.profileImgUrl as profileImgOfCustomer,SC.reviewContent,Services.category,P.petSitterName,P.petSitterProfileImg from Services
       left join Service_Customer SC on Services.serviceId = SC.serviceId
       left join Customers C on SC.customerId = C.customerId
-      left join PetSitters P on P.petSitterId=Services.petSitterId;
+      left join PetSitters P on P.petSitterId=Services.petSitterId
+      WHERE Services.status='END'
     `;
   
   
@@ -278,10 +280,21 @@ async function getReviewsDetail(connection) {
   // nickName,profileImg,kakaoEmail,sex
 
   const getReviewsDetailQuery = `
-      select C.customerName,C.profileImgUrl as profileImgOfCustomer,SC.reviewPicture,SC.isLike_YN,SC.reviewContent,Services.category,P.petSitterName,P.petSitterProfileImg from Services
-      left join Service_Customer SC on Services.serviceId = SC.serviceId
-      left join Customers C on SC.customerId = C.customerId
-      left join PetSitters P on P.petSitterId=Services.petSitterId;
+  select C.customerName,
+  C.profileImgUrl as profileImgOfCustomer,
+  SC.reviewPicture,
+  SC.isLike_YN,
+  SC.reviewContent,
+  CASE
+     WHEN Services.petType='DOG' THEN "강아지 돌봄"
+     WHEN Services.petType='CAT' THEN '고양이 돌봄'
+  END as petType,
+  P.petSitterName,
+  P.petSitterProfileImg from Services
+left join Service_Customer SC on Services.serviceId = SC.serviceId
+left join Customers C on SC.customerId = C.customerId
+left join PetSitters P on P.petSitterId=Services.petSitterId
+WHERE Services.status="END";
     `;
   
   
@@ -315,9 +328,10 @@ async function patchLike(connection,serviceId,customerId,isLike) {
 async function getCurrentServiceInfo(connection,userId) {
 
   const getCurrentServiceInfoQuery = `
-  SELECT Services.serviceId,petSitterName,category,DATE_FORMAT(planStartTime,'%Y-%m-%d %H시') as planStartTime,DATE_FORMAT(planEndTime,'%Y-%m-%d %H시') AS planEndTime,customerRequestContent FROM Services
+  SELECT Services.serviceId,petSitterName,category,DATE_FORMAT(planStartTime,'%Y-%m-%d %H시') as planStartTime,C.customerName,DATE_FORMAT(planEndTime,'%Y-%m-%d %H시') AS planEndTime,customerRequestContent FROM Services
   left join Service_Customer SC on Services.serviceId = SC.serviceId
   left join PetSitters PS on Services.petSitterId = PS.petSitterId
+  left join Customers C on C.customerId=SC.customerId
   where SC.customerId=${userId} and Services.status="ONGOING";
     `;
   
@@ -334,9 +348,14 @@ async function getCurrentServiceInfo(connection,userId) {
 async function getCurrentServicePets(connection,serviceId) {
 
   const getCurrentServicePetsQuery = `
-      select petName,petSex,petSize,petAge,petSpecies,profileImg from Service_Customer_Pet
-      left join Pets P on Service_Customer_Pet.petId = P.petId
-      where serviceId=${serviceId};
+  select petName,petSex,petSize,petAge,petSpecies,
+  CASE
+      WHEN petType='CAT' THEN "고양이"
+      WHEN petType='DOG' THEN '강아지'
+  END AS petType
+  ,profileImg from Service_Customer_Pet
+ left join Pets P on Service_Customer_Pet.petId = P.petId
+ where serviceId=${serviceId};
     `;
   
   console.log(getCurrentServicePetsQuery);
@@ -373,7 +392,10 @@ async function retrievePetsittersSameLocation(connection,userId,city,filter) {
   SELECT petSitterProfileImg,
        petSitterName,
        career,
-       hasPet_YN,
+       CASE
+          WHEN hasPet_YN='Y' THEN '반려동물 있음'
+          WHEN hasPet_YN='N' THEN '반려동물 없음'
+       END as hasPet_YN,
        sex,
        age,
        selfIntroduction,
@@ -421,6 +443,25 @@ WHERE customerId=${userId};
   return getUserCityResponse[0][0];
 }
 
+async function postBookMarks(connection,customerId,petSitterId) {
+
+  const getUserCityQuery = `
+      INSERT INTO BookMarks(customerId, petSitterId) 
+      VALUES(?,?)
+    `;
+  
+  
+
+  const getUserCityResponse = await connection.query(
+    getUserCityQuery,
+    customerId,
+    petSitterId
+  );
+
+
+  return getUserCityResponse[0][0];
+}
+
 
 module.exports = {
   retrievePetsittersSameLocation,
@@ -441,4 +482,5 @@ module.exports = {
   getUserFriends,
   postUserFriend,
   getBookMark,
+  postBookMarks
 };

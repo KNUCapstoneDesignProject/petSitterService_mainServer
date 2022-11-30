@@ -123,7 +123,9 @@ exports.patchUserInfo=async function(customerId,patchInfo,userStatus){
     connection = await pool.getConnection(async (conn) => conn);
 
     try{
+        console.log("잠깐만");
         await userDao.patchUserInfo(connection,customerId,patchInfo,userStatus);
+        console.log("잠깐만2");
         return response(baseResponse.SUCCESS);
 
     }catch(err){
@@ -182,6 +184,22 @@ exports.patchLike = async function (serviceId,customerId,isLike) {
 
     try{
         await userDao.postReservationInfo(connection,serviceId,customerId,isLike);
+
+        return response(baseResponse.SUCCESS);
+    }catch(err){
+        return errResponse(baseResponse.DB_ERROR);
+    }finally{
+        connection.release();
+    }
+    
+  
+  }
+
+  exports.postBookMarks = async function (customerId,petSitterId) {
+    connection=await pool.getConnection(async (conn) => conn);
+
+    try{
+        await userDao.postBookMarks(connection,customerId,petSitterId);
 
         return response(baseResponse.SUCCESS);
     }catch(err){

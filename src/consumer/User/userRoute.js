@@ -187,6 +187,8 @@ module.exports = function (app) {
   app.get('/users/:userId/current-service', user.getCurrentService);
   
   app.post("/service/reservation", user.postReservation); //postman에 등록해야함.
+
+  app.post("/bookmarks",user.postBookMarks);
 };
 
 

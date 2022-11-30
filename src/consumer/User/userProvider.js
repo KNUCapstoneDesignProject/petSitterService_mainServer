@@ -51,7 +51,7 @@ exports.getUserAddress=async function(customerId){
 
     try{
         const userAddress=await userDao.getUserAddress(connection,customerId);
-
+        console.log(userAddress);
         return response(baseResponse.SUCCESS,userAddress);
     }catch(err){
         return errResponse(baseResponse.DB_ERROR);
@@ -78,8 +78,11 @@ exports.getUserFriends=async function(customerId){
     const connection=await pool.getConnection(async (conn) => conn);
 
     try{
+        console.log("dao 직전");
         const userFriends=await userDao.getUserFriends(connection,customerId);
 
+        console.log("get user friends");
+        console.log(userFriends);
         return response(baseResponse.SUCCESS,userFriends);
     }catch(err){
         return errResponse(baseResponse.DB_ERROR);
