@@ -73,11 +73,11 @@ async function patchUserInfo(connection,customerId,patchInfo,userStatus) {
   return patchResponse;
 }
 
-async function postUserPets(connection,customerId,newPet) {
+async function postUserPets(connection,customerId,newPet,hospitalName,hospitalTel) {
   // nickName,profileImg,kakaoEmail,sex
 
   const postUserPetsQuery = `
-    INSERT INTO Pets(customerId,petName, petType, petSpecies, petBirth, petSize, petSex, petAge, registrationType, isNeutralize)
+    INSERT INTO Pets(customerId,petName, petType, petSpecies, petBirth, petSize, petSex, petAge, registrationType, isNeutralize,hospital,hospitalTel)
     VALUES(
       ${customerId},
       "${newPet.petName}",
@@ -88,11 +88,11 @@ async function postUserPets(connection,customerId,newPet) {
       "${newPet.petSex}",
       ${newPet.petAge},
       "${newPet.registrationType}",
-      "${newPet.isNeutralize}"
+      "${newPet.isNeutralize}",
+      "${hospitalName}",
+      "${hospitalTel}"
     )
     `;
-  
-  console.log(postUserPetsQuery);
 
   const patchResponse = await connection.query(
     postUserPetsQuery
@@ -307,14 +307,23 @@ WHERE Services.status="END";
   return getReviewsResponse[0];
 }
 
-async function patchLike(connection,serviceId,customerId,isLike) {
+async function patchLike(connection,serviceId,customerId,isLike,content,imageUrl) {
 
-  const patchLikeQuery = `
-  UPDATE Service_Customer
-  SET isLike_YN='${isLike}'
-  WHERE serviceId=${serviceId} and customerId=${customerId}
+  let contentStr='';
+  if (content) {
+    contentStr=`, reviewContent="${content}"`
+  }
+  if (imageUrl) {
+    imageStr=`, reviewPicture="${imageUrl}"`
+  }
+
+    const patchLikeQuery = `
+    UPDATE Service_Customer
+    SET isLike_YN='${isLike}'`+contentStr+imageStr+`
+    WHERE serviceId=${serviceId} and customerId=${customerId} 
     `;
   
+  console.log(patchLikeQuery);
   
 
   const patchLikeResponse = await connection.query(
@@ -403,6 +412,7 @@ async function retrievePetsittersSameLocation(connection,userId,city,filter) {
        isAgreeSharingLocation_YN,
        isWalkable_YN,
        isPossibleCareOldPet_YN,
+       satisfaction,
        CASE
            WHEN BM.customerId THEN 'Y'
            ELSE 'N'
@@ -445,15 +455,16 @@ WHERE customerId=${userId};
 
 async function postBookMarks(connection,customerId,petSitterId) {
 
-  const getUserCityQuery = `
+  const postBookMarksQuery = `
       INSERT INTO BookMarks(customerId, petSitterId) 
-      VALUES(?,?)
+      VALUES(${customerId},${petSitterId})
     `;
   
+  console.log(postBookMarksQuery)
   
 
   const getUserCityResponse = await connection.query(
-    getUserCityQuery,
+    postBookMarksQuery,
     customerId,
     petSitterId
   );
@@ -461,7 +472,24 @@ async function postBookMarks(connection,customerId,petSitterId) {
 
   return getUserCityResponse[0][0];
 }
+async function postSurvey(connection,petId,surveyId,questionId,answerId) {
+  // nickName,profileImg,kakaoEmail,sex
+  
+  const postSurveyQuery = `
+      INSERT INTO Answers(surveyId,questionId,offeredAnswerId,petId)
+      VALUES(${surveyId},${questionId},${answerId},${petId})
+    `;
+  
+    
+  
 
+  const postSurveyResponse = await connection.query(
+    postSurveyQuery
+  );
+
+  console.log(postSurveyQuery);
+  return postSurveyResponse[0];
+}
 
 module.exports = {
   retrievePetsittersSameLocation,
@@ -482,5 +510,6 @@ module.exports = {
   getUserFriends,
   postUserFriend,
   getBookMark,
-  postBookMarks
+  postBookMarks,
+  postSurvey,
 };

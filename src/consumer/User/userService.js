@@ -137,21 +137,31 @@ exports.patchUserInfo=async function(customerId,patchInfo,userStatus){
     
 }
 
-exports.postUserPets=async function(customerId,newPets,userStatus){
+exports.postUserPets=async function(customerId,newPet,userStatus,surveyArray,hospitalName,hospitalTel){
     connection = await pool.getConnection(async (conn) => conn);
 
     try{
         connection.beginTransaction()
-
-        await userDao.postUserPets(connection,customerId,newPets);
-        
+        const postPetResponse = await userDao.postUserPets(connection, customerId, newPet, hospitalName, hospitalTel);
+        console.log("ㅇㅇ");
+        console.log(postPetResponse);
+        const petId = postPetResponse[0].insertId;
+        console.log(petId);
+        console.log(surveyArray.length);
+        for (let questionId = 1; questionId < surveyArray.length+1; questionId++){
+            console.log("ㅇㅋ");
+            await userDao.postSurvey(connection,petId,1,questionId,surveyArray[questionId-1])
+            console.log("ㅇㅋ");
+        }
+        console.log("ㅇㅇ");
         console.log(userStatus);
         await userDao.patchUserInfo(connection,customerId,null,userStatus);
         console.log("여기");
         connection.commit();
         return response(baseResponse.SUCCESS);
 
-    }catch(err){
+    } catch (err) {
+        connection.rollback();
         return errResponse(baseResponse.DB_ERROR);
     }finally{
         connection.release();
@@ -160,11 +170,11 @@ exports.postUserPets=async function(customerId,newPets,userStatus){
     
 }
 
-exports.patchLike = async function (serviceId,customerId,isLike) {
+exports.patchLike = async function (serviceId,customerId,isLike,content,imageUrl) {
     connection=await pool.getConnection(async (conn) => conn);
 
     try{
-        await userDao.patchLike(connection,serviceId,customerId,isLike);
+        await userDao.patchLike(connection,serviceId,customerId,isLike,content,imageUrl);
 
         return response(baseResponse.SUCCESS);
     }catch(err){

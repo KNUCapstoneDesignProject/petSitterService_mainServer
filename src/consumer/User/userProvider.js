@@ -165,7 +165,7 @@ exports.getCurrentService=async function(userId){
         console.log("test2");
         const ServicePets=await userDao.getCurrentServicePets(connection,ServiceInfo.serviceId);
         ServiceInfo.pets=ServicePets;
-        delete ServiceInfo.serviceId;
+        ServiceInfo.serviceId;
 
 
         connection.commit();

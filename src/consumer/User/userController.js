@@ -56,16 +56,17 @@ exports.patchUserInfo=async function(req,res){
 
 
 exports.postUserPets=async function(req,res){
-  const newPet=req.body.dog;
+  const newPet=req.body.pet;
   const customerId=req.params.customerId;
-
+  const surveyArray = req.body.survey;
+  const hospitalName = req.body.hospitalName;
+  const hospitalTel=req.body.hospitalTel;
   const getStatusResponse=await userService.getStatus(customerId);
 
   let userStatus=getStatusResponse.result.status;
   if(userStatus==="STEP2")
     userStatus="COMPLETED";
-
-  const postUserPetsResponse=await userService.postUserPets(customerId,newPets,userStatus);
+  const postUserPetsResponse=await userService.postUserPets(customerId,newPet,userStatus,surveyArray,hospitalName,hospitalTel);
 
   return res.send(postUserPetsResponse);
 }
@@ -224,9 +225,9 @@ exports.getReviewsDetail = async function (req, res) {
 
 
 exports.patchLike = async function (req, res) {
-  const {serviceId,customerId,isLike}=req.body;
+  const {serviceId,customerId,isLike,content,imageUrl}=req.body;
 
-  const patchLikeResponse = await userService.patchLike(serviceId,customerId,isLike);
+  const patchLikeResponse = await userService.patchLike(serviceId,customerId,isLike,content,imageUrl);
 
   return res.send(patchLikeResponse);
 }
@@ -280,6 +281,7 @@ exports.postBookMarks = async function (req, res) {
   const customerId=req.body.customerId;
   const petSitterId=req.body.petSitterId;
 
+  console.log
   const postBookMarksResponse = await userService.postBookMarks(customerId,petSitterId);
 
   return res.send(postBookMarksResponse);
