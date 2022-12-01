@@ -60,9 +60,11 @@ exports.postUserPets=async function(req,res){
   const customerId=req.params.customerId;
   const surveyArray = req.body.survey;
   const hospitalName = req.body.hospitalName;
-  const hospitalTel=req.body.hospitalTel;
+  const hospitalTel = req.body.hospitalTel;
   const getStatusResponse=await userService.getStatus(customerId);
 
+  console.log("생일");
+  console.log(newPet);
   let userStatus=getStatusResponse.result.status;
   if(userStatus==="STEP2")
     userStatus="COMPLETED";

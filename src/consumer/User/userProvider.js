@@ -180,7 +180,7 @@ exports.getCurrentService=async function(userId){
 
 exports.retrievePetsittersSameLocation=async function(userId,filter){
     const connection=await pool.getConnection(async (conn) => conn);
-
+    
     try{
         connection.beginTransaction();
         const customerCity=await userDao.getUserCity(connection,userId);

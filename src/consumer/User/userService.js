@@ -142,7 +142,8 @@ exports.postUserPets=async function(customerId,newPet,userStatus,surveyArray,hos
 
     try{
         connection.beginTransaction()
-        const postPetResponse = await userDao.postUserPets(connection, customerId, newPet, hospitalName, hospitalTel);
+        console.log("ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ");
+        const postPetResponse = await userDao.postUserPets(connection, customerId, newPet,hospitalName, hospitalTel);
         console.log("ㅇㅇ");
         console.log(postPetResponse);
         const petId = postPetResponse[0].insertId;

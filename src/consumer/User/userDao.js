@@ -73,27 +73,29 @@ async function patchUserInfo(connection,customerId,patchInfo,userStatus) {
   return patchResponse;
 }
 
-async function postUserPets(connection,customerId,newPet,hospitalName,hospitalTel) {
+async function postUserPets(connection,customerId,newPet,imageUrl,hospitalName,hospitalTel) {
   // nickName,profileImg,kakaoEmail,sex
-
+  console.log("hoho");
+  console.log(newPet.petBirth+"-01")
   const postUserPetsQuery = `
-    INSERT INTO Pets(customerId,petName, petType, petSpecies, petBirth, petSize, petSex, petAge, registrationType, isNeutralize,hospital,hospitalTel)
+    INSERT INTO Pets(customerId,petName, petType, petSpecies, petBirth, petSize, petSex, petAge, registrationType, isNeutralize,profileImg,hospital,hospitalTel)
     VALUES(
       ${customerId},
       "${newPet.petName}",
       "${newPet.petType}",
       "${newPet.petSpecies}",
-      "${newPet.petBirth}",
+      "${newPet.petBirth}-01",
       "${newPet.petSize}",
       "${newPet.petSex}",
       ${newPet.petAge},
       "${newPet.registrationType}",
       "${newPet.isNeutralize}",
+      "${newPet.profileImg}",
       "${hospitalName}",
       "${hospitalTel}"
     )
     `;
-
+  console.log(postUserPetsQuery);
   const patchResponse = await connection.query(
     postUserPetsQuery
   );
@@ -396,6 +398,9 @@ async function retrievePetsittersSameLocation(connection,userId,city,filter) {
   if(filter.hasPet_YN)
      whereString+=` and PetSitters.hasPet_YN='${filter.hasPet_YN}'`
   
+  console.log("호호호");
+  console.log(filter.careType);
+  whereString += ` and PetSitters.careType='${filter.careType}'`;
 
   const getCurrentServiceInfoQuery = `
   SELECT petSitterProfileImg,
@@ -413,6 +418,8 @@ async function retrievePetsittersSameLocation(connection,userId,city,filter) {
        isWalkable_YN,
        isPossibleCareOldPet_YN,
        satisfaction,
+       veterinarianName,
+       veterinarianImgUrl,
        CASE
            WHEN BM.customerId THEN 'Y'
            ELSE 'N'
@@ -423,6 +430,8 @@ left join (
     SELECT * FROM BookMarks
     WHERE customerId=${userId}
 ) BM on BM.petSitterId=PetSitters.petSitterId
+left join petSitterVeterinarianMapping pSVM on PetSitters.petSitterId = pSVM.petSitterId
+left join Veterinarians on pSVM.veterinarianId=Veterinarians.veterinarianId
 WHERE SUBSTRING_INDEX(address,' ',1)='${city}'
     `+whereString;
   console.log(getCurrentServiceInfoQuery);
